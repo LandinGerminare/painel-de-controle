@@ -1,0 +1,45 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
+  theme: {
+    extend: {
+      colors: {
+        "primary-100": "var(--primary-100)",
+        "primary-200": "var(--primary-200)",
+        "primary-300": "var(--primary-300)",
+        "primary-400": "var(--primary-400)",
+        "primary-500": "var(--primary-500)",
+        "primary-600": "var(--primary-600)",
+        "primary-700": "var(--primary-700)",
+        "primary-800": "var(--primary-800)",
+        "primary-900": "var(--primary-900)",
+        "secondary-100": "var(--secondary-100)",
+        "secondary-200": "var(--secondary-200)",
+        "secondary-300": "var(--secondary-300)",
+        "secondary-400": "var(--secondary-400)",
+        "secondary-500": "var(--secondary-500)",
+        "secondary-600": "var(--secondary-600)",
+        "secondary-700": "var(--secondary-700)",
+        "secondary-800": "var(--secondary-800)",
+        "secondary-900": "var(--secondary-900)",
+        "neutral-100": "var(--bg-neutral-100)",
+        "neutral-200": "var(--bg-neutral-200)",
+        "neutral-300": "var(--bg-neutral-300)",
+        "neutral-400": "var(--bg-neutral-400)",
+        "neutral-500": "var(--bg-neutral-500)",
+        "neutral-600": "var(--bg-neutral-600)",
+        "neutral-700": "var(--bg-neutral-700)",
+        "neutral-800": "var(--bg-neutral-800)",
+        "neutral-900": "var(--bg-neutral-900)",
+        "support-error": "var(--support-error)",
+        "support-success": "var(--support-success)",
+        "support-warning": "var(--support-warning)",
+        "support-info": "var(--support-info)",
+        "specials-recommended": "var(--specials-recommended)",
+        "specials-executed": "var(--specials-executed)",
+      }
+    },
+  },
+  plugins: [],
+}
+
