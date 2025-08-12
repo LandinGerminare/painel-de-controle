@@ -11,6 +11,7 @@ import { useWindowSize } from "usehooks-ts";
 import { msalConfig } from "@/entraid/authConfig";
 import NextNProgress from "nextjs-progressbar";
 import { ToastContainer } from "react-toastify";
+import { LayoutProvider } from "@/context/Layout";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -57,7 +58,9 @@ export default function App({ Component, pageProps }: AppProps) {
         {["/", "/404"].includes(router.pathname) ? (
           <Component {...pageProps} />
         ) : (
-          <Component {...pageProps} />
+          <LayoutProvider>
+            <Component {...pageProps} />
+          </LayoutProvider>
         )}
         <ToastContainer />
       </MsalProvider>

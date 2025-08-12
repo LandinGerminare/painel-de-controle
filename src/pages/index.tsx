@@ -4,6 +4,7 @@ import { Roboto } from 'next/font/google'
 import InputPrimary from '@/components/FormComponents/InputPrimary';
 import ButtonCadaster from '@/components/FormComponents/ButtonCadaster';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -11,6 +12,8 @@ const roboto = Roboto({
 })
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <main className="h-screen w-screen bg-primary-700 flex items-center justify-center">
       <div className="flex flex-row bg-neutral-900 h-[82%] w-[70%] rounded-xl shadow-[30px_50px_8px_rgba(0,0,0,0.25)]">
@@ -53,6 +56,9 @@ export default function Home() {
                 </Link>
                 <ButtonCadaster
                   title='Acessar'
+                  onClick={() => {
+                    router.push("/dashboard")
+                  }}
                 />
               </div>
             </div>
