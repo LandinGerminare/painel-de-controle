@@ -50,7 +50,7 @@ export default function ButtonCadaster({
         if (loading) return;
         if (onClick) onClick(e);
       }}
-      className={`flex items-center h-11 justify-center rounded-lg gap-3 transition-all text-center active:border-button-1000 cursor-pointer ${style} ${sizeStyle} ${disabledStyle} ${containerStyle}`}
+      className={`flex items-center h-14 justify-center rounded-lg gap-3 transition-all text-center active:border-button-1000 cursor-pointer ${style} ${sizeStyle} ${disabledStyle} ${containerStyle}`}
       {...props}
     >
       {loading ? "Carregando..." : (
