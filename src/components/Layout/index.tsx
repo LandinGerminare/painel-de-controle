@@ -33,7 +33,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           }}
         />
         <div className="flex-1 flex flex-col overflow-hidden">
-          <div className="flex-1 h-full flex flex-col gap-4 relative">
+          <div className="flex-1 h-full flex flex-col gap-4 relative p-8">
             {renderContent(children)}
           </div>
         </div>
