@@ -2,8 +2,11 @@ import Button from "@/components/FormComponents/Button";
 import ButtonCadaster from "@/components/FormComponents/ButtonCadaster";
 import TextArea from "@/components/FormComponents/TextArea";
 import Layout from "@/components/Layout";
+import ClientModal from "@/components/Modal/ClientModal";
+import useModal from "@/context/Modal";
 
 export default function SendWhatsapp() {
+  const { setModalContent } = useModal();
   return (
     <Layout>
       <div className="w-full flex justify-center">
@@ -13,6 +16,7 @@ export default function SendWhatsapp() {
           <div className="w-full flex justify-end">
             <Button
               title="Selecionar Cliente"
+              onClick={() => setModalContent(<ClientModal />)}
             />
           </div>
           <TextArea
