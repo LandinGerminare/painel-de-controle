@@ -12,6 +12,7 @@ import { msalConfig } from "@/entraid/authConfig";
 import NextNProgress from "nextjs-progressbar";
 import { ToastContainer } from "react-toastify";
 import { LayoutProvider } from "@/context/Layout";
+import { ModalProvider } from "@/context/Modal";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -58,9 +59,11 @@ export default function App({ Component, pageProps }: AppProps) {
         {["/", "/404"].includes(router.pathname) ? (
           <Component {...pageProps} />
         ) : (
-          <LayoutProvider>
-            <Component {...pageProps} />
-          </LayoutProvider>
+          <ModalProvider>
+            <LayoutProvider>
+              <Component {...pageProps} />
+            </LayoutProvider>
+          </ModalProvider>
         )}
         <ToastContainer />
       </MsalProvider>

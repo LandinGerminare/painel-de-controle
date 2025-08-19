@@ -19,7 +19,7 @@ export default function InputPrimary({
   return (
     <div className={`flex flex-col ${componentStyle}`}>
       <div
-        className={`bg-neutral-600 rounded-lg h-14 inputContainer overflow-hidden flex items-center w-full ${containerStyle}`}
+        className={`bg-neutral-700 rounded-lg h-11 inputContainer overflow-hidden flex items-center w-full ${containerStyle}`}
       >
         {children && <div className="pl-2">{children}</div>}
 
