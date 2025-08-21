@@ -23,11 +23,9 @@ export default function Layout({ children }: { children: ReactNode }) {
   }, [router.pathname]);
 
   return (
-    <div className="h-screen w-screen flex flex-col overflow-hidden bg-neutral-900">
-      <div>
-        <Header />
-      </div>
-      <div className="w-full h-full flex flex-row">
+    <div className="min-h-screen w-full overflow-y-auto overflow-x-hidden scrollbar flex flex-col bg-neutral-900">
+      <Header />
+      <div className="w-full flex-1 flex flex-row">
         <SideBar
           selectedMenu={selectedMenu}
           onChangeMenu={(newMenu) => {
@@ -35,14 +33,17 @@ export default function Layout({ children }: { children: ReactNode }) {
             router.push(newMenu.route);
           }}
         />
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <div className="flex-1 h-full flex flex-col gap-4 relative p-8">
+
+        <div className="flex-1 flex flex-col min-w-0">
+          <div className="flex-1 flex flex-col gap-4 relative p-8">
             {renderContent(children)}
           </div>
         </div>
       </div>
+
       {modalContent && <Modal>{modalContent}</Modal>}
     </div>
+
   )
 
   function renderContent(children: ReactNode) {

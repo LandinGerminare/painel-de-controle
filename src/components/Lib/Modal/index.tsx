@@ -49,7 +49,7 @@ export const Modal = ({ children, modalWidth }: ModalProps) => {
     <Backdrop>
       <motion.div
         onClick={(e) => e.stopPropagation()}
-        //variants={dropIn}
+        variants={dropIn}
         initial="hidden"
         animate="visible"
         exit="exit"
