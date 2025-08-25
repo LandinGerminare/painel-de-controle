@@ -37,21 +37,10 @@ export const clientsMock = [
 ];
 
 export const pessoas = [
-    { id: 1, foto: img1, nome: "João Silva", funcao: "Analista de Sistemas" },
-    { id: 2, foto: img2, nome: "Maria Oliveira", funcao: "Designer UX/UI" },
-    { id: 3, foto: img3, nome: "Carlos Souza", funcao: "Engenheiro de Software" },
-    { id: 4, foto: img4, nome: "Ana Paula", funcao: "Gerente de Projetos" },
-    { id: 5, foto: img5, nome: "Ricardo Lima", funcao: "DevOps Engineer" },
-    { id: 6, foto: img6, nome: "Fernanda Costa", funcao: "QA Tester" },
-    { id: 7, foto: img7, nome: "Lucas Pereira", funcao: "Arquiteto de Software" },
-    { id: 8, foto: img8, nome: "Juliana Martins", funcao: "Product Owner" },
-    { id: 9, foto: img9, nome: "Pedro Henrique", funcao: "Estagiário Front-End" },
-    { id: 10, foto: img10, nome: "Beatriz Rocha", funcao: "Scrum Master" },
-    { id: 11, foto: img11, nome: "André Almeida", funcao: "Full-Stack Developer" },
-    { id: 12, foto: img12, nome: "Camila Nunes", funcao: "Especialista em Banco de Dados" },
-    { id: 13, foto: img13, nome: "Felipe Santos", funcao: "Mobile Developer" },
-    { id: 14, foto: img14, nome: "Roberta Ferreira", funcao: "Coordenadora de TI" },
-    { id: 15, foto: img15, nome: "Gustavo Ribeiro", funcao: "Engenheiro de Dados" },
-    { id: 16, foto: img16, nome: "Usuário Genérico", funcao: "Colaborador" },
-    { id: 17, foto: img17, nome: "Landin", funcao: "Desenvolvedor Front-End Germinare" },
+    { id: 1, foto: img1, nome: "Jojo", funcao: "Analista de Sistemas", phone: "5534998200203" },
+    { id: 2, foto: img2, nome: "Fernando", funcao: "Designer UX/UI", phone: "55119963371072" },
+    { id: 3, foto: img3, nome: "Isabela", funcao: "Engenheiro de Software", phone: "5534998002608" },
+    { id: 4, foto: img4, nome: "João Victor", funcao: "Gerente de Projetos", phone: "55219964846416" },
+    { id: 5, foto: img5, nome: "Landin", funcao: "DevOps Engineer", phone: "5534999380163" },
+    { id: 6, foto: img6, nome: "Amanda", funcao: "QA Tester", phone: "5548992069214" },
 ];

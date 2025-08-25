@@ -1,11 +1,14 @@
-import LandinPerfil from "@/../public/images/Pessoas/perfillandin.png";
 import Button from "@/components/FormComponents/Button";
+import useModal from "@/context/Modal";
 import Image from "next/image";
 import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
-import PaginationTable from "./PaginationTable";
 import { clientsTableMock } from "../../../../public/Mock/clientTableMock";
+import PaginationTable from "./PaginationTable";
+import ClientCadasterModal from "../ClientCadasterModal";
 
 export default function ClientTable() {
+  const { setModalContent } = useModal();
+
   return (
     <div className="flex flex-col gap-2">
       {clientsTableMock.map((client, index) => (
@@ -19,19 +22,25 @@ export default function ClientTable() {
             className="h-16 w-16 rounded-full border border-neutral-300 object-cover"
           />
           <div className="flex flex-row gap-4 w-full">
-            <div className="flex flex-row justify-between ml-4 w-full gap-4 items-center">
-              {item("Cliente", client.name)}
-              {item("Email", client.email)}
-              {item("Telefone", client.phone)}
-              {item("Empresa", client.company)}
-              {item("Função", client.role)}
+            <div className="flex flex-row ml-4 w-full gap-2 items-center">
+              <div className="w-[100px]">{item("Cliente", client.name)}</div>
+              <div className="w-[180px]">{item("Email", client.email)}</div>
+              <div className="w-[120px]">{item("Telefone", client.phone)}</div>
+              <div className="w-[100px]">{item("Empresa", client.company)}</div>
+              <div className="w-[170px]">{item("Função", client.role)}</div>
             </div>
             <div className="flex justify-end">
-              <Button className="flex items-center justify-center gap-2 px-2 py-2 rounded-lg transition-transform duration-200 hover:scale-110">
+              <Button
+                className="flex items-center justify-center gap-2 px-2 py-2 rounded-lg transition-transform duration-200 hover:scale-110"
+                onClick={() => setModalContent(<ClientCadasterModal client={client} />)}
+              >
                 <FaEdit size={18} color="#fff" />
               </Button>
 
-              <Button className="flex items-center justify-center gap-2 px-2 py-2 rounded-lg transition-transform duration-200 hover:scale-110">
+              <Button
+                className="flex items-center justify-center gap-2 px-2 py-2 rounded-lg transition-transform duration-200 hover:scale-110"
+                onClick={() => alert(`BORA DELETAR ${client.id}`)}
+              >
                 <FaRegTrashAlt size={18} color="#FD5868" />
               </Button>
             </div>
@@ -39,7 +48,9 @@ export default function ClientTable() {
         </div>
       ))}
 
-      <PaginationTable />
+      {clientsTableMock.length >= 15 && (
+        <PaginationTable />
+      )}
     </div>
   );
 }
@@ -48,7 +59,7 @@ function item(title: string, value: string) {
   return (
     <div className="flex flex-col gap-0">
       <p className="text-xs text-neutral-300">{title}</p>
-      <p className="text-lg text-neutral-100 font-medium">{value}</p>
+      <p className="text-lg text-neutral-100 font-medium truncate">{value}</p>
     </div>
   );
 }

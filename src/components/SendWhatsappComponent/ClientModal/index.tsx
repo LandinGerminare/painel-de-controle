@@ -30,7 +30,7 @@ export default function ClientModal() {
   const handleConfirm = () => {
     const selectedData = pessoas
       .filter((c) => selectClientsId.includes(c.id))
-      .map((c) => ({ id: c.id, nome: c.nome }));
+      .map((c) => ({ id: c.id, nome: c.nome, phone: c.phone }));
 
     setSelectedClients(selectedData);
     setModalContent(null);

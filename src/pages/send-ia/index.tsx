@@ -1,4 +1,5 @@
 import ButtonCadaster from "@/components/FormComponents/ButtonCadaster";
+import InputSecondary from "@/components/FormComponents/InputSecondary";
 import TextArea from "@/components/FormComponents/TextArea";
 import Layout from "@/components/Layout";
 
@@ -10,9 +11,14 @@ export default function SendIa() {
           <h1 className="text-white text-center text-4xl font-bold">Inteligência I.A</h1>
           <p className="text-white">Neste campo, você pode digitar textos relacionados à área de commodities para contribuir com a melhoria da eficiência e da inteligência da I.A. Germinare. Dessa forma, conseguiremos entregar respostas com maior precisão e eficácia aos nossos clientes.</p>
 
-          <TextArea
-            placeholder="Digite o texto..."
-          />
+          <div className="flex flex-col gap-1">
+            <InputSecondary
+              placeholder="Digite o Titulo da Mensagem"
+            />
+            <TextArea
+              placeholder="Digite o texto..."
+            />
+          </div>
 
           <ButtonCadaster
             title="Enviar"

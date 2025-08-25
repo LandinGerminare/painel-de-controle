@@ -1,19 +1,49 @@
 import ButtonCadaster from "@/components/FormComponents/ButtonCadaster";
 import InputSecondary from "@/components/FormComponents/InputSecondary";
 import BaseModal from "@/components/Lib/BaseModal";
+import { phoneMask } from "@/utils/formatters";
 import { useState } from "react";
 import { FaUserAlt } from "react-icons/fa";
+import { IClientCadaster } from "../type";
 
-export default function ClientCadasterModal() {
+interface IProps {
+  client?: IClientCadaster
+}
 
-  const [image, setImage] = useState<string | null>(null);
+export default function ClientCadasterModal(props: IProps) {
+  const [form, setForm] = useState<IClientCadaster>({
+    name: "",
+    email: "",
+    company: "",
+    role: "",
+    area: "",
+    produto: "",
+    phone: "",
+    city: "",
+    image: null as string | null,
+  });
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
+      setForm({ ...form, image: imageUrl });
     }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    let formattedValue = value;
+
+    switch (name) {
+      case "telefone":
+        formattedValue = value.replace(/\D/g, "");
+        break;
+      default:
+        break;
+    }
+
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   return (
@@ -26,16 +56,16 @@ export default function ClientCadasterModal() {
           <button
             className="relative h-52 w-64 rounded-full border border-neutral-300 bg-neutral-400 flex justify-center items-center cursor-pointer overflow-hidden"
             style={
-              image
+              form.image
                 ? {
-                  backgroundImage: `url(${image})`,
+                  backgroundImage: `url(${form.image})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }
                 : {}
             }
           >
-            {!image && <FaUserAlt size={100} color="#2A2C32" />}
+            {!form.image && <FaUserAlt size={100} color="#2A2C32" />}
             <input
               type="file"
               accept="image/*"
@@ -48,49 +78,73 @@ export default function ClientCadasterModal() {
             <div className="flex gap-8 w-full">
               <InputSecondary
                 label="Nome"
+                name="name"
+                value={props.client?.name ? props.client.name : form.name}
                 placeholder="Digite o nome..."
                 componentStyle={"w-full"}
+                onChange={handleChange}
               />
               <InputSecondary
                 label="Email"
+                value={props.client?.email ? props.client.email : form.email}
+                name="email"
                 placeholder="Digite o email..."
                 componentStyle={"w-full"}
+                onChange={handleChange}
               />
             </div>
             <div className="flex gap-8 w-full">
               <InputSecondary
                 label="Empresa"
+                name="company"
+                value={props.client?.company ? props.client.company : form.company}
                 placeholder="Digite o nome da empresa..."
                 componentStyle={"w-full"}
+                onChange={handleChange}
               />
               <InputSecondary
                 label="Cargo"
+                name="role"
+                value={props.client?.role ? props.client.role : form.role}
                 placeholder="Digite o cargo..."
                 componentStyle={"w-full"}
+                onChange={handleChange}
               />
             </div>
             <div className="flex gap-8 w-full">
               <InputSecondary
                 label="Área"
+                name="area"
+                value={props.client?.area ? props.client.area : form.area}
                 placeholder="Digite a área..."
                 componentStyle={"w-full"}
+                onChange={handleChange}
               />
               <InputSecondary
                 label="Produto"
+                name="produto"
+                value={props.client?.produto ? props.client.produto : form.produto}
                 placeholder="Digite o produto..."
                 componentStyle={"w-full"}
+                onChange={handleChange}
               />
             </div>
             <div className="flex gap-8 w-full">
               <InputSecondary
                 label="Telefone"
+                name="phone"
+                value={props.client?.phone ? props.client?.phone : phoneMask(form.phone)}
                 placeholder="(XX) XXXXX-XXXX"
                 componentStyle={"w-full"}
+                onChange={handleChange}
               />
               <InputSecondary
                 label="Cidade"
+                name="city"
+                value={props.client?.city ? props.client.city : form.city}
                 placeholder="Busque pela cidade"
                 componentStyle={"w-full"}
+                onChange={handleChange}
               />
             </div>
 
@@ -98,6 +152,7 @@ export default function ClientCadasterModal() {
               <ButtonCadaster
                 title="Cadastrar Usuário"
                 containerStyle={"w-full"}
+                onClick={() => console.log(form)}
               />
             </div>
           </div>

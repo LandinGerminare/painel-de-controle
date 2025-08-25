@@ -9,6 +9,7 @@ import {
 export interface Client {
   id: number;
   nome: string;
+  phone: string;
 }
 
 export interface SenWhatsappI {
