@@ -2,8 +2,32 @@ import ButtonCadaster from "@/components/FormComponents/ButtonCadaster";
 import InputSecondary from "@/components/FormComponents/InputSecondary";
 import TextArea from "@/components/FormComponents/TextArea";
 import Layout from "@/components/Layout";
+import { useTripleRequest } from "@/hooks/triple/useTripleRequest";
+import { useState } from "react";
+import { toast } from "react-toastify";
+
+interface SendIaProps {
+  title: string;
+  message: string;
+}
 
 export default function SendIa() {
+
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+
+  const [sendIa, setSendIa] = useTripleRequest<SendIaProps>("POST", {
+    onSuccess: (data) => {
+      toast.success("Mensagem enviada com sucesso!");
+      console.log("Success", data);
+      setTitle("")
+      setText("")
+    },
+    onError(errorMessage) {
+      toast.error(errorMessage);
+    },
+  });
+
   return (
     <Layout>
       <div className="w-full flex justify-center">
@@ -13,15 +37,29 @@ export default function SendIa() {
 
           <div className="flex flex-col gap-1">
             <InputSecondary
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               placeholder="Digite o Titulo da Mensagem"
             />
             <TextArea
+              value={text}
+              onChange={(e) => setText(e.target.value)}
               placeholder="Digite o texto..."
             />
           </div>
 
           <ButtonCadaster
             title="Enviar"
+            onClick={() => {
+              if (!title || !text) {
+                toast.error("Por favor, preencha todos os campos.");
+                return;
+              }
+              setSendIa({
+                url: "/knowledge-base",
+                body: { title, text },
+              });
+            }}
           />
         </div>
       </div>
