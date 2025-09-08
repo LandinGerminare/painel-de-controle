@@ -57,7 +57,7 @@ export default function Home() {
                 <ButtonCadaster
                   title='Acessar'
                   onClick={() => {
-                    router.push("/dashboard")
+                    router.push("/send-ia")
                   }}
                 />
               </div>
