@@ -26,6 +26,7 @@ export default function SideBar(props: SideBarProps) {
               key={e.name}
               isSelected={props.selectedMenu?.route === e.route}
               onClick={() => {
+                if (props.selectedMenu?.name === "Envios I.A") return;
                 props.onChangeMenu(e);
               }}
               icon={Icon}
