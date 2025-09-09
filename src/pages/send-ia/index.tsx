@@ -3,6 +3,7 @@ import InputSecondary from "@/components/FormComponents/InputSecondary";
 import TextArea from "@/components/FormComponents/TextArea";
 import Layout from "@/components/Layout";
 import { useTripleRequest } from "@/hooks/triple/useTripleRequest";
+import Loading from "@/lib/Loading";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -12,12 +13,9 @@ interface SendIaProps {
 }
 
 export default function SendIa() {
-  const username = "5538999108052";
-  const password = "adm123";
-  const token = btoa(`${username}:${password}`);
-
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [sendIa, setSendIa] = useTripleRequest<SendIaProps>("POST", {
     onSuccess: (data) => {
@@ -25,13 +23,25 @@ export default function SendIa() {
       console.log("Success", data);
       setTitle("")
       setText("")
+      setLoading(false);
+    },
+    onLoading() {
+      console.log("Loading");
+      setLoading(true);
     },
     onError(errorMessage) {
       toast.error(errorMessage);
+      setLoading(false);
     },
   });
 
-  console.log(btoa("5538999108052:adm123"))
+  if (loading) {
+    return (
+      <Layout>
+        <Loading />
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
