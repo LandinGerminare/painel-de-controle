@@ -10,6 +10,7 @@ interface RequestParams {
   params?: any;
   config?: AxiosRequestConfig;
   defaultError?: string;
+  headers?: any;
 }
 
 export interface RequestCallbacks<T> {

@@ -12,6 +12,9 @@ interface SendIaProps {
 }
 
 export default function SendIa() {
+  const username = "5538999108052";
+  const password = "adm123";
+  const token = btoa(`${username}:${password}`);
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -27,6 +30,8 @@ export default function SendIa() {
       toast.error(errorMessage);
     },
   });
+
+  console.log(btoa("5538999108052:adm123"))
 
   return (
     <Layout>
