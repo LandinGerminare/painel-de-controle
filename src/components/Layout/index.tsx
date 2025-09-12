@@ -36,7 +36,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
         <div className="flex-1 flex flex-col min-w-0">
           <div className="flex-1 flex flex-col gap-4 relative p-8">
-            {renderContent(children)}
+            {children}
           </div>
         </div>
       </div>
@@ -45,8 +45,4 @@ export default function Layout({ children }: { children: ReactNode }) {
     </div>
 
   )
-
-  function renderContent(children: ReactNode) {
-    return children;
-  }
 }

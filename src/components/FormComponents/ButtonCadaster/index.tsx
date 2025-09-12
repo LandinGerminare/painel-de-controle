@@ -41,7 +41,7 @@ export default function ButtonCadaster({
         : "p-[10px] text-base ";
 
   let disabledStyle = disabled
-    ? "cursor-not-allowed !text-neutral-900 !border-neutral-300 !bg-transparent !hover:border-primary-300 hover:text-primary-300 "
+    ? " bg-neutral-700 text-neutral-200 cursor-not-allowed hover:bg-neutral-700 hover:text-neutral-400"
     : "";
 
   return (
@@ -50,7 +50,7 @@ export default function ButtonCadaster({
         if (loading) return;
         if (onClick) onClick(e);
       }}
-      className={`flex items-center h-11 justify-center rounded-lg gap-3 transition-all text-center active:border-button-1000 cursor-pointer ${style} ${sizeStyle} ${disabledStyle} ${containerStyle}`}
+      className={`flex items-center h-11 justify-center rounded-lg gap-3 transition-all text-center active:border-button-1000 cursor-pointer ${disabledStyle ? disabledStyle : style} ${sizeStyle} ${containerStyle}`}
       {...props}
     >
       {loading ? "Carregando..." : (

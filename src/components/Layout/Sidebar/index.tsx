@@ -26,12 +26,14 @@ export default function SideBar(props: SideBarProps) {
               key={e.name}
               isSelected={props.selectedMenu?.route === e.route}
               onClick={() => {
-                if (props.selectedMenu?.name === "Envios I.A") return;
-                props.onChangeMenu(e);
+                if (!e.inDevelopment) {
+                  props.onChangeMenu(e);
+                }
               }}
               icon={Icon}
               text={e.name}
               collapsed={collapsed ?? false}
+              inDevelopment={e.inDevelopment}
             />
           );
         })}
