@@ -21,7 +21,7 @@ export default function InputPriceComponent({
         <div className="shrink-0 text-base text-gray-400 select-none sm:text-sm/6">R$</div>
         <input
           type="text"
-          value={value ? value : "0,00"}
+          value={value ? value : ""}
           onChange={(e) => onChange(e.target.value)}
           placeholder="0.00"
           className="block min-w-0 grow bg-transparent py-1.5 pr-3 pl-1 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6"
