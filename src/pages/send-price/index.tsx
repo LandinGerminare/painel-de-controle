@@ -2,7 +2,7 @@ import { priceApi } from "@/api/priceApi";
 import ButtonCadaster from "@/components/FormComponents/ButtonCadaster";
 import SelectCity from "@/components/FormComponents/SelectCity";
 import Layout from "@/components/Layout";
-import InputPriceComponent from "@/components/SemdPriceComponent/InputPriceComponent";
+import InputPriceComponent from "@/components/FormComponents/InputPriceComponent";
 import { City } from "@/types/Cities";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -28,7 +28,7 @@ export default function SendPricePage() {
 
         setCities(response.data.cities);
       } catch (error: any) {
-        toast.error("Erro ao carregar cidades");
+        toast.error("Erro ao carregar cidades.");
         console.error(error);
       } finally {
         setLoading(false);
@@ -95,7 +95,6 @@ export default function SendPricePage() {
     }
   }
 
-  console.log(formCity);
   return (
     <Layout>
       <div className="w-full flex justify-center">
@@ -142,7 +141,6 @@ export default function SendPricePage() {
           </div>
         </div>
       </div>
-
     </Layout>
   );
 }

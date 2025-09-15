@@ -5,6 +5,10 @@ import InputPrimary from '@/components/FormComponents/InputPrimary';
 import ButtonCadaster from '@/components/FormComponents/ButtonCadaster';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { User } from '@/types/User';
+import { useState } from 'react';
+import { message, notification } from 'antd';
+import { toast } from 'react-toastify';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -13,9 +17,52 @@ const roboto = Roboto({
 
 export default function Home() {
   const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [messageApi, contextHolder] = message.useMessage();
+  const [api, contextNotification] = notification.useNotification();
+  const key = 'updatable';
+  const users: User[] = [
+    { mail: 'jose@germinareagro.com.br', password: 'a33rdc#', name: 'José Jorge' },
+    { mail: 'conrado@germinareagro.com.br', password: 'pltre@', name: 'Conrado Zanon' },
+    { mail: 'admin@germinareagro.com.br', password: 's8gst#', name: 'Administrador' },
+  ];
+
+  async function validLogin() {
+    if (users) {
+      const authenticatedUser = users.find(
+        (user) => user.mail === email && user.password === password
+      );
+
+      if (authenticatedUser) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userName', authenticatedUser.name)
+        localStorage.setItem('userMail', authenticatedUser.mail)
+        openMessage();
+      } else {
+        openNotification();
+      }
+    }
+  };
+
+  const openNotification = () => {
+    toast.error("Usuário ou senha inválidos.");
+  };
+
+  const openMessage = () => {
+    setTimeout(() => {
+      toast.success("Login realizado com sucesso!");
+      setTimeout(() => {
+        router.push('/send-ia');
+      }, 990);
+    }, 1000);
+  };
+
 
   return (
     <main className="h-screen w-screen bg-primary-700 flex items-center justify-center">
+      {contextHolder}
+      {contextNotification}
       <div className="flex flex-row bg-neutral-900 h-[82%] w-[70%] rounded-xl shadow-[30px_50px_8px_rgba(0,0,0,0.25)]">
         <div
           className="hidden tablet:flex w-[60%] h-full bg-primary-400 rounded-l-xl bg-[url('/images/image_dados.png')] bg-cover bg-center"
@@ -44,21 +91,23 @@ export default function Home() {
               <div className='w-full flex flex-col gap-4'>
                 <InputPrimary
                   placeholder='Digite seu email...'
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
                 <InputPrimary
                   placeholder='Digite sua senha...'
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
                 />
-                <Link
+                {/*                 <Link
                   href="/esqueci-minha-senha"
                   className="w-full block text-end text-primary-500 hover:underline"
                 >
                   Esqueci minha senha
-                </Link>
+                </Link> */}
                 <ButtonCadaster
                   title='Acessar'
-                  onClick={() => {
-                    router.push("/send-ia")
-                  }}
+                  onClick={validLogin}
                 />
               </div>
             </div>

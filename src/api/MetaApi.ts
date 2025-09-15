@@ -7,12 +7,12 @@ interface SendWhatsappProps {
   to: string;
   message?: string;
   type?: "text" | "image" | "document";
-  url?: string; // URL pública da imagem ou arquivo
-  filename?: string; // usado para documento
+  url?: string;
+  filename?: string;
 }
 
 const MetaApi = {
-  sendWhatsapp: async ({ to, message, type = "text", url, filename }: SendWhatsappProps) => {
+  sendWhatsapp: async ({ to, message, type, url, filename }: SendWhatsappProps) => {
     let body: any;
 
     if (type === "text") {

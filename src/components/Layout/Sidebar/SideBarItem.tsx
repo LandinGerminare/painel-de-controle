@@ -20,7 +20,7 @@ export default function SideBarItem(props: SideBarItemProps) {
       {props.icon && <props.icon size={20} />}
       {!props.collapsed && <span className="ml-2">{props.text}</span>}
       <div className="ml-auto">
-        {props.text !== "Envios I.A" && props.text !== "Sair" && props.text !== "Envio de Preços" && (
+        {props.inDevelopment && (
           <FaLock size={16} />
         )}
       </div>

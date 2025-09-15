@@ -1,7 +1,8 @@
 import {
   ButtonHTMLAttributes,
   DetailedHTMLProps,
-  MouseEventHandler
+  MouseEvent,
+  MouseEventHandler,
 } from "react";
 
 interface ButtonProps
@@ -49,7 +50,7 @@ export default function Button({
         if (loading) return;
         if (onClick) onClick(e);
       }}
-      className={`flex items-center h-11 justify-center rounded-lg gap-3 transition-all text-center border-[1px] border-primary-900 hover:border-primary-800 active:border-button-1000 cursor-pointer ${style} ${sizeStyle} ${disabledStyle} ${containerStyle}`}
+      className={`flex items-center justify-center rounded-xl gap-3 transition-all text-center border-[1px] border-primary-900 hover:border-primary-800 active:border-button-1000 cursor-pointer ${style} ${sizeStyle} ${disabledStyle} ${containerStyle}`}
       {...props}
     >
       {loading ? "Carregando..." : (
