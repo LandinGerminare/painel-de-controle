@@ -16,7 +16,7 @@ export default function InputPriceComponent({
   city
 }: IInputProps) {
   return (
-    <div className="mt-2">
+    <div className="mt-2 w-full">
       <div className="flex items-center pl-3 border-b border-neutral-600">
         <div className="shrink-0 text-base text-gray-400 select-none sm:text-sm/6">R$</div>
         <input

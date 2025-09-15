@@ -10,6 +10,7 @@ import { DwPdf } from "@/utils/DownloadPdf";
 import { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { formatCityName, getStateAbbreviation } from "@/utils/StateAbbreviation";
 
 export default function CheckPrice() {
   const [loading, setLoading] = useState(false);
@@ -59,12 +60,12 @@ export default function CheckPrice() {
     }
   }
 
-  const handleChange = (cityId: number, value: string) => {
+  const handleChange = (cityId: number, field: "value_market" | "value_traded", value: string) => {
     const numericValue = parseFloat(value) || 0;
     setCities(prev =>
       prev.map(city =>
         city.city_id === cityId
-          ? { ...city, value_market: numericValue }
+          ? { ...city, [field]: numericValue }
           : city
       )
     );
@@ -89,12 +90,20 @@ export default function CheckPrice() {
               {cities.length > 0 ? (
                 cities.map((city, index) => {
                   return (
-                    <InputPriceComponent
-                      key={city.city_id}
-                      value={city?.value_market !== null ? String(city.value_market) : ""}
-                      onChange={(value) => handleChange(city.city_id, value)}
-                      city={city.city_name}
-                    />
+                    <div key={city.city_id} className="flex flex-row gap-4 w-full">
+                      <InputPriceComponent
+                        value={city?.value_market !== null ? String(city.value_market) : ""}
+                        onChange={(value) => handleChange(city.city_id, "value_market", value)}
+                        city="Balcão"
+                      />
+                      <InputPriceComponent
+                        value={city?.value_traded !== null ? String(city.value_traded) : ""}
+                        onChange={(value) => handleChange(city.city_id, "value_traded", value)}
+                        city="Trade Level"
+                      />
+
+                      <span className="flex justify-end w-[400px] truncate mt-4 border-b border-neutral-600 text-white">{formatCityName(city.city_name)}</span>
+                    </div>
                   )
                 })
               ) : (
