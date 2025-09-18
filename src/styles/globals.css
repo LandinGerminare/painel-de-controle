@@ -83,6 +83,11 @@
     width: 0.4rem;
   }
 
+  input[type="month"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
   .scrollbar::-webkit-scrollbar-track {
     border-radius: 100vh;
     background: var(--neutral-200);
