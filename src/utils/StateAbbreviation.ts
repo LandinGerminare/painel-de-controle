@@ -33,11 +33,10 @@ export function getStateAbbreviation(state: string): string {
 }
 
 export function formatCityName(cityName: string): string {
-    // Exemplo: "RONDONOPOLIS - MATO GROSSO"
     const parts = cityName.split(" - ");
     if (parts.length === 2) {
         const [city, state] = parts;
         return `${city} - ${getStateAbbreviation(state)}`;
     }
-    return cityName; // se não tiver "-"
+    return cityName;
 }

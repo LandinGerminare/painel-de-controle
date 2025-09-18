@@ -80,6 +80,8 @@ export default function SendPricePage() {
         ...c,
         value: Number(c.value),
         creation_date: new Date().toISOString(),
+        taxed: true,
+        boarding_month: new Date().getMonth() + 1,
       }));
 
       const response = await priceApi.post("/v1/prices/post-multiple-prices", payload);

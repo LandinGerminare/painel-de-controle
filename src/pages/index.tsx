@@ -27,6 +27,7 @@ export default function Home() {
     { mail: 'conrado@germinareagro.com.br', password: 'pltre@', name: 'Conrado Zanon' },
     { mail: 'admin@germinareagro.com.br', password: 's8gst#', name: 'Administrador' },
     { mail: 'leandro@germinareagro.com.br', password: 'L3v9Qz', name: 'Leandro' },
+    { mail: 'landin@germinareagro.com.br', password: '123123', name: 'Landin' },
   ];
 
   async function validLogin() {
