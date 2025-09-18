@@ -60,60 +60,57 @@ export default function SendWhatsappView() {
 
 
   return (
-    <Layout>
-      <div className="w-full flex justify-center">
-        <div className="gap-4 max-w-6xl flex flex-col">
-          <h1 className="text-white text-center text-4xl font-bold">Enviar Mensagem via WhatsApp</h1>
-          <p className="text-white">
-            Neste campo, você pode escrever a mensagem que será enviada aos clientes selecionados.
-            No botão abaixo, selecione os clientes para os quais deseja enviar a mensagem.
-          </p>
+    <div className="w-full flex justify-center">
+      <div className="gap-4 max-w-6xl flex flex-col">
+        <p className="text-white">
+          Neste campo, você pode escrever a mensagem que será enviada aos clientes selecionados.
+          No botão abaixo, selecione os clientes para os quais deseja enviar a mensagem.
+        </p>
 
-          <div className="w-full flex justify-between">
-            <select
-              value={selectedType}
-              onChange={(e) => setSelectedType(e.target.value)}
-              className="w-1/3 px-3 border-[1px] border-neutral-700 rounded-lg h-11 overflow-hidden focus-within:border-primary-900 flex items-center bg-transparent text-white"
-            >
-              <option value="" className="text-white bg-neutral-700">Nenhum</option>
-              <option value="image" className="text-white bg-neutral-700">Imagem</option>
-              <option value="file" className="text-white bg-neutral-700">Arquivo</option>
-            </select>
+        <div className="w-full flex justify-between">
+          <select
+            value={selectedType}
+            onChange={(e) => setSelectedType(e.target.value)}
+            className="w-1/3 px-3 border-[1px] border-neutral-700 rounded-lg h-11 overflow-hidden focus-within:border-primary-900 flex items-center bg-transparent text-white"
+          >
+            <option value="" className="text-white bg-neutral-700">Nenhum</option>
+            <option value="image" className="text-white bg-neutral-700">Imagem</option>
+            <option value="file" className="text-white bg-neutral-700">Arquivo</option>
+          </select>
 
-            <Button
-              title="Selecionar Cliente"
-              onClick={() => setModalContent(<ClientModal />)}
-            />
-          </div>
-
-          <TypeSend
-            selectedType={selectedType}
-            setFileUrl={setFileUrl}
-            setFileName={setFileName}
+          <Button
+            title="Selecionar Cliente"
+            onClick={() => setModalContent(<ClientModal />)}
           />
-
-          <TextArea
-            placeholder="Digite o texto..."
-            value={message}
-            onChange={(e: any) => setMessage(e.target.value)}
-          />
-
-          <div className="w-full flex flex-col gap-2">
-            <h5 className="text-white font-bold text-lg">Clientes Selecionados</h5>
-            <p className="text-white font-light">
-              {selectedClients.length > 0
-                ? selectedClients.map((c) => c.nome).join(", ")
-                : "Nenhum cliente selecionado."}
-            </p>
-          </div>
-
-          <ButtonCadaster
-            title="Enviar"
-            onClick={handleMessageWpp}
-          />
-
         </div>
+
+        <TypeSend
+          selectedType={selectedType}
+          setFileUrl={setFileUrl}
+          setFileName={setFileName}
+        />
+
+        <TextArea
+          placeholder="Digite o texto..."
+          value={message}
+          onChange={(e: any) => setMessage(e.target.value)}
+        />
+
+        <div className="w-full flex flex-col gap-2">
+          <h5 className="text-white font-bold text-lg">Clientes Selecionados</h5>
+          <p className="text-white font-light">
+            {selectedClients.length > 0
+              ? selectedClients.map((c) => c.nome).join(", ")
+              : "Nenhum cliente selecionado."}
+          </p>
+        </div>
+
+        <ButtonCadaster
+          title="Enviar"
+          onClick={handleMessageWpp}
+        />
+
       </div>
-    </Layout>
+    </div>
   )
 }

@@ -19,11 +19,11 @@ export default function SideBarItem(props: SideBarItemProps) {
     >
       {props.icon && <props.icon size={20} />}
       {!props.collapsed && <span className="ml-2">{props.text}</span>}
-      <div className="ml-auto">
-        {props.inDevelopment && (
+      {props.inDevelopment && !props.collapsed && (
+        <div className="ml-auto">
           <FaLock size={16} />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

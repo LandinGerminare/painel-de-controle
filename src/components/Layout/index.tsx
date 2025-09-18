@@ -23,24 +23,20 @@ export default function Layout({ children }: { children: ReactNode }) {
   }, [router.pathname]);
 
   return (
-    <div className="min-h-screen w-full overflow-y-auto overflow-x-hidden scrollbar flex flex-col bg-neutral-900">
-      <Header />
-      <div className="w-full flex-1 flex flex-row">
-        <SideBar
-          selectedMenu={selectedMenu}
-          onChangeMenu={(newMenu) => {
-            setSelectedMenu(newMenu);
-            router.push(newMenu.route);
-          }}
-        />
+    <div className="h-screen w-screen flex flex-row overflow-hidden bg-neutral-900">
+      <SideBar
+        selectedMenu={selectedMenu}
+        onChangeMenu={(newMenu) => {
+          setSelectedMenu(newMenu);
+          router.push(newMenu.route);
+        }}
+      />
 
-        <div className="flex-1 flex flex-col min-w-0">
-          <div className="flex-1 flex flex-col gap-4 relative p-8">
-            {children}
-          </div>
+      <div className="flex-1 flex flex-col min-w-0">
+        <div className="flex-1 flex flex-col gap-4 relative">
+          {children}
         </div>
       </div>
-
       {modalContent && <Modal>{modalContent}</Modal>}
     </div>
 

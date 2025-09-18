@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { formatCityName, getStateAbbreviation } from "@/utils/StateAbbreviation";
+import BasePage from "@/components/Lib/BasePage";
+import Header from "@/components/Layout/Header";
 
 export default function CheckPrice() {
   const [loading, setLoading] = useState(false);
@@ -81,59 +83,59 @@ export default function CheckPrice() {
 
   return (
     <Layout>
-      <div className="w-full flex justify-center">
-        <div className="gap-4 max-w-6xl flex flex-col w-full">
-          <h1 className="text-white text-center text-4xl font-bold">Conferir Preços</h1>
+      <BasePage header={<Header title="Conferir Preços" button={null} />}>
+        <div className="w-full flex justify-center">
+          <div className="gap-4 max-w-6xl flex flex-col w-full">
+            <div className="flex flex-col gap-12">
+              <div className="flex flex-col gap-4">
+                {cities.length > 0 ? (
+                  cities.map((city, index) => {
+                    return (
+                      <div key={city.city_id} className="flex flex-row gap-4 w-full">
+                        <InputPriceComponent
+                          value={city?.value_market !== null ? String(city.value_market) : ""}
+                          onChange={(value) => handleChange(city.city_id, "value_market", value)}
+                          city="Balcão"
+                        />
+                        <InputPriceComponent
+                          value={city?.value_traded !== null ? String(city.value_traded) : ""}
+                          onChange={(value) => handleChange(city.city_id, "value_traded", value)}
+                          city="Trade Level"
+                        />
 
-          <div className="flex flex-col gap-12">
-            <div className="flex flex-col gap-4">
-              {cities.length > 0 ? (
-                cities.map((city, index) => {
-                  return (
-                    <div key={city.city_id} className="flex flex-row gap-4 w-full">
-                      <InputPriceComponent
-                        value={city?.value_market !== null ? String(city.value_market) : ""}
-                        onChange={(value) => handleChange(city.city_id, "value_market", value)}
-                        city="Balcão"
-                      />
-                      <InputPriceComponent
-                        value={city?.value_traded !== null ? String(city.value_traded) : ""}
-                        onChange={(value) => handleChange(city.city_id, "value_traded", value)}
-                        city="Trade Level"
-                      />
-
-                      <span className="flex justify-end w-[400px] truncate mt-4 border-b border-neutral-600 text-white">{formatCityName(city.city_name)}</span>
-                    </div>
-                  )
-                })
-              ) : (
-                <p className="text-white">Nenhuma cidade encontrada.</p>
-              )}
-            </div>
-            <div className="flex w-full gap-4">
-              <Button containerStyle={"w-full"} title="Gerar Pdf" onClick={handlePdf} />
-              <Button
-                title="Enviar Planilha"
-                onClick={() => {
-                  sendPdf ? setModalContent(<ModalSendWhatsapp sendPdf={sendPdf} />) : toast.warning("Favor Gerar o PDF.");
-                }}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                style={{
-                  width: "100%",
-                  fontWeight: "600",
-                  color: isHovered ? "#62E390" : "#4EB673",
-                  borderColor: isHovered ? "#62E390" : "#4EB673",
-                  borderWidth: "1px",
-                  borderStyle: "solid",
-                }}
-              >
-                <FaWhatsapp size={20} className="mb-1" />
-              </Button>
+                        <span className="flex justify-end w-[400px] truncate mt-4 border-b border-neutral-600 text-white">{formatCityName(city.city_name)}</span>
+                      </div>
+                    )
+                  })
+                ) : (
+                  <p className="text-white">Nenhuma cidade encontrada.</p>
+                )}
+              </div>
+              <div className="flex w-full gap-4">
+                <Button containerStyle={"w-full"} title="Gerar Pdf" onClick={handlePdf} />
+                <Button
+                  title="Enviar Planilha"
+                  onClick={() => {
+                    sendPdf ? setModalContent(<ModalSendWhatsapp sendPdf={sendPdf} />) : toast.warning("Favor Gerar o PDF.");
+                  }}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                  style={{
+                    width: "100%",
+                    fontWeight: "600",
+                    color: isHovered ? "#62E390" : "#4EB673",
+                    borderColor: isHovered ? "#62E390" : "#4EB673",
+                    borderWidth: "1px",
+                    borderStyle: "solid",
+                  }}
+                >
+                  <FaWhatsapp size={20} className="mb-1" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </BasePage>
     </Layout >
   );
 }

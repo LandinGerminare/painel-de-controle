@@ -6,6 +6,8 @@ import InputPriceComponent from "@/components/FormComponents/InputPriceComponent
 import { City } from "@/types/Cities";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import BasePage from "@/components/Lib/BasePage";
+import Header from "@/components/Layout/Header";
 
 interface IFormCity {
   city_name: string;
@@ -99,50 +101,49 @@ export default function SendPricePage() {
 
   return (
     <Layout>
-      <div className="w-full flex justify-center">
-        <div className="gap-4 max-w-6xl flex flex-col w-full">
-          <h1 className="text-white text-center text-4xl font-bold">Envio de Preços</h1>
-
-          <div className="flex flex-col gap-12">
-            <SelectCity selectedCities={selectedCities} setSelectedCities={setSelectedCities} cities={cities} />
-
-            <div className="flex flex-col gap-4">
+      <BasePage header={<Header title="Envio de Preços" button={null} />}>
+        <div className="w-full flex justify-center">
+          <div className="gap-4 max-w-6xl flex flex-col w-full">
+            <div className="flex flex-col gap-12">
+              <SelectCity selectedCities={selectedCities} setSelectedCities={setSelectedCities} cities={cities} />
               <div className="flex flex-col gap-4">
-                {selectedCities.length > 0 ? (
-                  selectedCities.map((city) => {
-                    const current = formCity.find((c) => c.city_id === city.cd_cidade);
-                    return (
-                      <div key={city.cd_cidade} className="flex flex-col">
-                        <InputPriceComponent
-                          value={current?.value !== undefined ? String(current.value) : ""}
-                          onChange={(value) => {
-                            handleChange(city, value);
-                          }}
-                          selectedCities={city}
-                        />
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="flex flex-col">
-                    <InputPriceComponent
-                      value=""
-                      onChange={() => { }}
-                      selectedCities={{
-                        cd_cidade: 0,
-                        nm_cidade: "Cidade",
-                        nm_uf: "UF",
-                      }}
-                      disabled
-                    />
-                  </div>
-                )}
+                <div className="flex flex-col gap-4">
+                  {selectedCities.length > 0 ? (
+                    selectedCities.map((city) => {
+                      const current = formCity.find((c) => c.city_id === city.cd_cidade);
+                      return (
+                        <div key={city.cd_cidade} className="flex flex-col">
+                          <InputPriceComponent
+                            value={current?.value !== undefined ? String(current.value) : ""}
+                            onChange={(value) => {
+                              handleChange(city, value);
+                            }}
+                            selectedCities={city}
+                          />
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="flex flex-col">
+                      <InputPriceComponent
+                        value=""
+                        onChange={() => { }}
+                        selectedCities={{
+                          cd_cidade: 0,
+                          nm_cidade: "Cidade",
+                          nm_uf: "UF",
+                        }}
+                        disabled
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
+              <ButtonCadaster title="Enviar Preços" onClick={handleSubmit} />
             </div>
-            <ButtonCadaster title="Enviar Preços" onClick={handleSubmit} />
           </div>
         </div>
-      </div>
+      </BasePage>
     </Layout>
   );
 }

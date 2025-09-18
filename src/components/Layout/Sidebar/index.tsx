@@ -14,11 +14,24 @@ interface SideBarProps {
 export default function SideBar(props: SideBarProps) {
   const router = useRouter()
 
-  const { collapsed } = useLayout()
+  const { collapsed, setCollapsed } = useLayout()
 
   return (
     <nav className={`flex flex-col bg-neutral-800 ${collapsed ? "w-20" : "w-60"}`}>
       <div className="flex flex-col flex-1 p-2 gap-4">
+        <div className={`pt-3 pl-1 flex flex-row items-center text-white justify-between ${collapsed ? "m-auto" : "justify-start"}`}>
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="hover:bg-neutral-700 rounded-full p-2"
+          >
+            <HiOutlineMenu size={22} />
+          </button>
+          {!collapsed && (
+            <div className={`flex items-center overflow-hidden transition-all duration-300`}>
+              <img src="/images/germinare_logo.png" className="h-9 -ml-3" />
+            </div>
+          )}
+        </div>
         {menuOptions.map((e) => {
           const Icon = e.icon;
           return (
