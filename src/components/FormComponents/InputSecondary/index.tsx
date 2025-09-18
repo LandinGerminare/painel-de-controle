@@ -24,7 +24,7 @@ export default function InputSecondary({
     <div className={`flex flex-col ${componentStyle}`}>
       {(label || subtitle) && (
         <div className="flex items-center justify-between mb-1">
-          {label && <p className="font-medium">{label}</p>}
+          {label && <p className="font-medium text-white">{label}</p>}
           {(subtitle || props.required) && (
             <p className="text-[0.7rem] text-neutral-600">
               {props.required ? "Obrigatório" : subtitle}
