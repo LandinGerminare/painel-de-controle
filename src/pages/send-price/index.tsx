@@ -82,7 +82,7 @@ export default function SendPricePage() {
         ...c,
         value: Number(c.value),
         creation_date: new Date().toISOString(),
-        taxed: true,
+        taxed: false,
         boarding_month: new Date().getMonth() + 1,
       }));
 
