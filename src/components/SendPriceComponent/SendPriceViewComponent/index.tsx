@@ -21,6 +21,7 @@ export default function SendPriceViewComponent() {
   const [loading, setLoading] = useState(false);
   const [cities, setCities] = useState<City[]>([]);
   const [formCity, setFormCity] = useState<IFormCity[]>([]);
+  const [invalidCities, setInvalidCities] = useState<number[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,6 +82,19 @@ export default function SendPriceViewComponent() {
       return;
     }
 
+    const invalid = selectedCities
+      .filter(city => {
+        const data = formCity.find(f => f.city_id === city.cd_cidade);
+        return !data?.value || !data?.boardingMonth || !data?.taxed;
+      })
+      .map(city => city.cd_cidade);
+
+    if (invalid.length > 0) {
+      setInvalidCities(invalid);
+      toast.error("Preencha todos os campos obrigatórios");
+      return;
+    }
+
     try {
       setLoading(true);
       const payload = formCity.map((c) => ({
@@ -103,6 +117,7 @@ export default function SendPriceViewComponent() {
       console.error(error);
     } finally {
       setLoading(false);
+      setInvalidCities([]);
     }
   }
 
@@ -125,6 +140,7 @@ export default function SendPriceViewComponent() {
             onChange={(field, newValue) => {
               handleChange(city, field, newValue);
             }}
+            isInvalid={invalidCities.includes(city.cd_cidade)}
           />
         );
       })}
