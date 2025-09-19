@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ModalSendWhatsapp from "../ModalSendWhatsapp";
 import { FaWhatsapp } from "react-icons/fa";
+import Loading from "@/lib/Loading";
 
 export default function CheckPriceViewComponent() {
   const [loading, setLoading] = useState(false);
@@ -87,6 +88,10 @@ export default function CheckPriceViewComponent() {
         },
       ];
     });
+  }
+
+  if (loading) {
+    return <Loading />
   }
 
   return (

@@ -123,6 +123,9 @@ export default function SendPriceViewComponent() {
     }
   }
 
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <div className="w-full flex-1 gap-4 flex flex-col">
