@@ -5,6 +5,7 @@ import { MdLogout } from "react-icons/md";
 import SideBarItem from "./SideBarItem";
 import { useState } from "react";
 import useLayout from "@/context/Layout";
+import useAuth from "@/context/Auth";
 
 interface SideBarProps {
   selectedMenu: MenuItem | null;
@@ -14,6 +15,7 @@ interface SideBarProps {
 export default function SideBar(props: SideBarProps) {
   const router = useRouter()
 
+  const { clearCredentials } = useAuth();
   const { collapsed, setCollapsed } = useLayout()
 
   return (
@@ -55,6 +57,7 @@ export default function SideBar(props: SideBarProps) {
           isSelected={false}
           text="Sair"
           onClick={() => {
+            clearCredentials();
             router.push("/")
           }}
           icon={MdLogout}

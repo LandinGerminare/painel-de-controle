@@ -13,12 +13,9 @@ export const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    //const token = localStorage.getItem("access_token");
-    const username = "5534992267582";
-    const password = "@Germinare2020";
-    const token = btoa(`${username}:${password}`);
+    const token = localStorage.getItem("access_token");
     if (token) {
-      config.headers!["Authorization"] = `Basic ${token}`;
+      config.headers!["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },

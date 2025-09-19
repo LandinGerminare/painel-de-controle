@@ -13,6 +13,7 @@ import NextNProgress from "nextjs-progressbar";
 import { ToastContainer } from "react-toastify";
 import { LayoutProvider } from "@/context/Layout";
 import { ModalProvider } from "@/context/Modal";
+import { AuthProvider } from "@/context/Auth";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -52,20 +53,23 @@ export default function App({ Component, pageProps }: AppProps) {
   function appContent() {
     return (
       <MsalProvider instance={msalInstance}>
-        <NextNProgress
-          color="var(--primary-500)"
-          options={{ showSpinner: false }}
-        />
-        {["/", "/404"].includes(router.pathname) ? (
-          <Component {...pageProps} />
-        ) : (
+        <AuthProvider>
           <ModalProvider>
-            <LayoutProvider>
+            <NextNProgress
+              color="var(--primary-500)"
+              options={{ showSpinner: false }}
+            />
+            {["/", "/404"].includes(router.pathname) ? (
               <Component {...pageProps} />
-            </LayoutProvider>
+            ) : (
+
+              <LayoutProvider>
+                <Component {...pageProps} />
+              </LayoutProvider>
+            )}
+            <ToastContainer />
           </ModalProvider>
-        )}
-        <ToastContainer />
+        </AuthProvider>
       </MsalProvider>
     );
   }
