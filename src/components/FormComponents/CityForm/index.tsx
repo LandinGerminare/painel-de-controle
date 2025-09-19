@@ -4,6 +4,7 @@ import Toggle from "../Toggle";
 import { Circle } from "phosphor-react";
 import { AiFillAlert, AiOutlineDown } from "react-icons/ai";
 import { FaCheckCircle } from "react-icons/fa";
+import { FaCircleXmark } from "react-icons/fa6";
 
 interface IFormCityProps {
   cityId: number;
@@ -13,6 +14,7 @@ interface IFormCityProps {
   taxed: boolean;
   checkPrice?: boolean;
   onChange: (field: string, value: any) => void;
+  isInvalid?: boolean;
 }
 
 export default function CityForm({
@@ -21,7 +23,8 @@ export default function CityForm({
   boardingMonth,
   taxed,
   checkPrice,
-  onChange
+  onChange,
+  isInvalid
 }: IFormCityProps) {
   const [expand, setExpand] = useState(false);
 
@@ -34,6 +37,8 @@ export default function CityForm({
         <div className="flex flex-row gap-3 items-center">
           {value && taxed && boardingMonth ? (
             <FaCheckCircle size={16} className="text-green-500" />
+          ) : isInvalid ? (
+            <FaCircleXmark size={16} className="text-red-500" />
           ) : (
             <Circle size={16} className="text-neutral-600" />
           )}
