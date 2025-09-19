@@ -34,10 +34,10 @@ export default function YesNoToggle({
           <div
             className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all 
             ${value === true
-                ? "bg-primary-600 border-primary-600 shadow-md shadow-primary-600/50"
+                ? props.disabled ? "bg-neutral-600 border-neutral-600" : "bg-primary-600 border-primary-600 shadow-md shadow-primary-600/50"
                 : "border-neutral-400 bg-transparent"}`}
           />
-          <span className="text-white text-xl">Sim</span>
+          <span className="text-white text-xl">Diferido</span>
         </label>
 
         <label className="flex items-center cursor-pointer gap-2">
@@ -51,10 +51,10 @@ export default function YesNoToggle({
           <div
             className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all 
             ${value === false
-                ? "bg-primary-600 border-primary-600 shadow-md shadow-primary-600/50"
+                ? props.disabled ? "bg-neutral-600 border-neutral-600" : "bg-primary-600 border-primary-600 shadow-md shadow-primary-600/50"
                 : "border-neutral-400 bg-transparent"}`}
           />
-          <span className="text-white text-xl">Não</span>
+          <span className="text-white text-xl">Tributado</span>
         </label>
       </div>
     </div>

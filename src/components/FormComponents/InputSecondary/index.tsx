@@ -33,7 +33,7 @@ export default function InputSecondary({
         </div>
       )}
       <div
-        className={`border-[1px] border-neutral-700 rounded-lg h-11 inputContainer overflow-hidden focus-within:border-primary-900 flex items-center w-full transition-colors duration-200 ${containerStyle} ${props.disabled ? "bg-neutral-200" : "bg-transparent"
+        className={`border-[1px] border-neutral-700 rounded-lg h-11 inputContainer overflow-hidden focus-within:border-primary-900 flex items-center w-full transition-colors duration-200 ${containerStyle} ${props.disabled ? "bg-neutral-600" : "bg-transparent"
           } `}
       >
         {children && <div className="pl-2">{children}</div>}

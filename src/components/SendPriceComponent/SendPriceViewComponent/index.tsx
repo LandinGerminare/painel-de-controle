@@ -3,6 +3,8 @@ import ButtonCadaster from "@/components/FormComponents/ButtonCadaster";
 import CityForm from "@/components/FormComponents/CityForm";
 import InputPriceComponent from "@/components/FormComponents/InputPriceComponent";
 import SelectCity from "@/components/FormComponents/SelectCity";
+import Layout from "@/components/Layout";
+import Loading from "@/lib/Loading";
 import { City } from "@/types/Cities";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -85,7 +87,7 @@ export default function SendPriceViewComponent() {
     const invalid = selectedCities
       .filter(city => {
         const data = formCity.find(f => f.city_id === city.cd_cidade);
-        return !data?.value || !data?.boardingMonth || !data?.taxed;
+        return !data?.value || !data?.boardingMonth;
       })
       .map(city => city.cd_cidade);
 
@@ -120,6 +122,7 @@ export default function SendPriceViewComponent() {
       setInvalidCities([]);
     }
   }
+
 
   return (
     <div className="w-full flex-1 gap-4 flex flex-col">

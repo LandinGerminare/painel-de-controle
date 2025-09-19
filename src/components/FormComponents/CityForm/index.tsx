@@ -9,10 +9,11 @@ import { FaCircleXmark } from "react-icons/fa6";
 interface IFormCityProps {
   cityId: number;
   cityName: string;
-  value: string;
-  boardingMonth: string;
+  value: string | number;
+  boardingMonth: string | number;
   taxed: boolean;
   checkPrice?: boolean;
+  value_traded?: string | number;
   onChange: (field: string, value: any) => void;
   isInvalid?: boolean;
 }
@@ -24,7 +25,8 @@ export default function CityForm({
   taxed,
   checkPrice,
   onChange,
-  isInvalid
+  isInvalid,
+  value_traded
 }: IFormCityProps) {
   const [expand, setExpand] = useState(false);
 
@@ -35,7 +37,7 @@ export default function CityForm({
         onClick={() => setExpand(!expand)}
       >
         <div className="flex flex-row gap-3 items-center">
-          {value && taxed && boardingMonth ? (
+          {value && boardingMonth ? (
             <FaCheckCircle size={16} className="text-green-500" />
           ) : isInvalid ? (
             <FaCircleXmark size={16} className="text-red-500" />
@@ -45,7 +47,7 @@ export default function CityForm({
           <h2 className="text-lg font-semibold text-white mt-1">{cityName}</h2>
         </div>
         <span className="text-sm text-white flex items-center gap-2">
-          {value && taxed && boardingMonth ? "Preenchido" : "Pendente"}
+          {value && boardingMonth ? "Preenchido" : "Pendente"}
           <AiOutlineDown />
         </span>
       </div>
@@ -65,7 +67,8 @@ export default function CityForm({
               componentStyle="w-full"
               label="Traded Level"
               placeholder="R$ 0,00"
-            // Se precisar de outro campo separado
+              value={value_traded}
+              onChange={(e) => onChange("value_traded", e.target.value)}
             />
           )}
 
@@ -78,12 +81,14 @@ export default function CityForm({
             max={`${new Date().getFullYear()}-12`}
             onFocus={(e) => e.target.showPicker && e.target.showPicker()}
             onChange={(e) => onChange("boardingMonth", e.target.value)}
+            disabled={checkPrice}
           />
 
           <Toggle
             label="Imposto"
             value={taxed}
             onChange={(val) => onChange("taxed", val)}
+            disabled={checkPrice}
           />
         </div>
       )}

@@ -5,8 +5,12 @@ export interface City {
 }
 
 export interface PriceCity {
+    unique_id: string;
     city_id: number;
     city_name: string;
-    value_market: number;
+    value: number;
     value_traded: number | null;
+    boarding_month: number | string;
+    taxed: boolean;
+    value_market?: number;
 }
