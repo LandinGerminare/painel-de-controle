@@ -6,7 +6,7 @@ import SendIaViewComponent from "@/components/SendIaComponents/SendIaViewCompone
 export default function SendIa() {
   return (
     <Layout>
-      <BasePage header={<Header title="Tabela Clientes" button={null} />}>
+      <BasePage header={<Header title="Inteligência I.A" button={null} />}>
         <SendIaViewComponent />
       </BasePage>
     </Layout>
