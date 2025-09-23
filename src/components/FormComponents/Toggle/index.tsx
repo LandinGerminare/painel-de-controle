@@ -27,13 +27,13 @@ export default function YesNoToggle({
           <input
             type="radio"
             className="sr-only"
-            checked={value === true}
-            onChange={() => onChange?.(true)}
+            checked={value === false}
+            onChange={() => onChange?.(false)}
             {...props}
           />
           <div
             className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all 
-            ${value === true
+            ${value === false
                 ? props.disabled ? "bg-neutral-600 border-neutral-600" : "bg-primary-600 border-primary-600 shadow-md shadow-primary-600/50"
                 : "border-neutral-400 bg-transparent"}`}
           />
@@ -44,13 +44,13 @@ export default function YesNoToggle({
           <input
             type="radio"
             className="sr-only"
-            checked={value === false}
-            onChange={() => onChange?.(false)}
+            checked={value === true}
+            onChange={() => onChange?.(true)}
             {...props}
           />
           <div
             className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all 
-            ${value === false
+            ${value === true
                 ? props.disabled ? "bg-neutral-600 border-neutral-600" : "bg-primary-600 border-primary-600 shadow-md shadow-primary-600/50"
                 : "border-neutral-400 bg-transparent"}`}
           />
