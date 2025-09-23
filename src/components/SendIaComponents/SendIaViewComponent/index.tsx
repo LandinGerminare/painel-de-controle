@@ -18,13 +18,11 @@ export default function SendIaViewComponent() {
   const [sendIa, setSendIa] = useTripleRequest<SendIaProps>("POST", {
     onSuccess: (data) => {
       toast.success("Mensagem enviada com sucesso!");
-      console.log("Success", data);
       setTitle("")
       setText("")
       setLoading(false);
     },
     onLoading() {
-      console.log("Loading");
       setLoading(true);
     },
     onError(errorMessage) {
