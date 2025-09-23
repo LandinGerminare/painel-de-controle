@@ -16,17 +16,9 @@ export default function ClientTable() {
           key={index}
           className="flex flex-row px-3 py-2 items-center bg-neutral-700 rounded-lg"
         >
-          <Image
-            src={client.image}
-            alt={`Perfil de ${client.name}`}
-            className="h-16 w-16 rounded-full border border-neutral-300 object-cover"
-          />
           <div className="flex flex-row gap-4 w-full">
             <div className="flex flex-row ml-4 w-full gap-2 items-center">
               <div className="w-[100px]">{item("Cliente", client.name)}</div>
-              <div className="w-[180px]">{item("Email", client.email)}</div>
-              <div className="w-[120px]">{item("Telefone", client.phone)}</div>
-              <div className="w-[100px]">{item("Empresa", client.company)}</div>
               <div className="w-[170px]">{item("Função", client.role)}</div>
             </div>
             <div className="flex justify-end">
@@ -39,7 +31,7 @@ export default function ClientTable() {
 
               <Button
                 className="flex items-center justify-center gap-2 px-2 py-2 rounded-lg transition-transform duration-200 hover:scale-110"
-                onClick={() => alert(`BORA DELETAR ${client.id}`)}
+                onClick={() => alert(`BORA DELETAR ${client.name}`)}
               >
                 <FaRegTrashAlt size={18} color="#FD5868" />
               </Button>
