@@ -4,4 +4,4 @@ export interface IClientCadaster {
     whatsapp_number: string;
     password?: string;
     role: string;
-}
+} 
