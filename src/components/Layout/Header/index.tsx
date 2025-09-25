@@ -2,7 +2,7 @@
 
 interface IHeaderProps {
   title: string;
-  button: React.ReactNode;
+  button?: React.ReactNode;
 }
 
 export default function Header({ title, button }: IHeaderProps) {
