@@ -12,10 +12,7 @@ export default function SendIa() {
 
   return (
     <Layout>
-      <BasePage header={<Header
-        title="Inteligência I.A"
-      /* button={<ButtonConfigComponent onClick={() => setModalContent(<ModalTextSendIa />)} />} */
-      />}>
+      <BasePage header={<Header title="Inteligência I.A" button={<ButtonConfigComponent onClick={() => setModalContent(<ModalTextSendIa />)} />} />}>
         <SendIaViewComponent />
       </BasePage>
     </Layout>

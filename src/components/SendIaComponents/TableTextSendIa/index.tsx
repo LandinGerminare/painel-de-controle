@@ -1,10 +1,11 @@
 import useModal from "@/context/Modal";
 import { useTripleRequest } from "@/hooks/triple/useTripleRequest";
-import { useState } from "react";
-import { FiTrash2, FiChevronDown } from "react-icons/fi";
+import { ITitles } from "@/types/SendIa";
+import { FiTrash2 } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 interface TableProps {
-  dados: string[];
+  dados: ITitles[];
 }
 
 export default function TableTextSendIa({ dados }: TableProps) {
@@ -12,6 +13,10 @@ export default function TableTextSendIa({ dados }: TableProps) {
   const [deleteResult, deleteTitle] = useTripleRequest("DELETE", {
     onSuccess(_) {
       setModalContent(null)
+      toast.success("Título deletado com sucesso!")
+    },
+    onError(_) {
+      toast.error("Erro ao deletar o título.")
     }
   })
 
@@ -27,13 +32,13 @@ export default function TableTextSendIa({ dados }: TableProps) {
         <tbody>
           {dados.map((item, index) => (
             <tr
-              key={item}
+              key={item.id}
               className={`border-t border-b border-neutral-600 h-16`}
             >
               <td
                 className={`py-3 px-4 text-lg font-normal w-full cursor-pointer`}
               >
-                {item}
+                {item.titulo}
               </td>
               <td className="py-6 px-4 flex justify-end items-center mx-auto gap-3">
                 <FiTrash2
@@ -41,7 +46,7 @@ export default function TableTextSendIa({ dados }: TableProps) {
                   className="cursor-pointer text-red-500 hover:text-red-600"
                   onClick={() => {
                     deleteTitle({
-                      url: `/knowledge-base/${item}`
+                      url: `/knowledge-base/${item.id}`
                     })
                   }}
                 />

@@ -13,7 +13,7 @@ export default function ModalTextSendIa() {
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     getTexts({
-      url: `/knowledge-base/titles`,
+      url: `/knowledge-base/documents`,
       defaultError:
         "Ocorreu um erro ao obter as informações de mercado. Tente novamente mais tarde.",
     });
