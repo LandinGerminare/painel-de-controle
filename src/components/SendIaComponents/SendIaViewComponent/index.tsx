@@ -24,7 +24,7 @@ export default function SendIaViewComponent() {
   const [sendIa, setSendIa] = useTripleRequest<SendIaProps>("POST", {
     onSuccess: (data) => {
       typeSend
-        ? toast.success("PDF enviado com sucesso!")
+        ? toast.success("PDF enviado para processamento!")
         : toast.success("Mensagem enviada com sucesso!");
 
       setTitle("")
