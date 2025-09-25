@@ -17,12 +17,16 @@ api.interceptors.request.use(
     if (token) {
       config.headers!["Authorization"] = `Bearer ${token}`;
     }
+    if (config.data instanceof FormData) {
+      delete config.headers!["Content-Type"];
+      delete config.headers!["Accept"];
+    }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
+
 
 api.interceptors.response.use(
   (res) => {

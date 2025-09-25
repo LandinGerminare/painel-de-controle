@@ -38,6 +38,9 @@ export const useTripleRequest = <T>(
         data: args.body,
         method: m,
         params: args.params,
+        headers: args.body instanceof FormData
+          ? {}
+          : { "Content-Type": "application/json", Accept: "application/json" },
         ...args.config,
       });
       setSuccess(response.data);

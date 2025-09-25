@@ -89,6 +89,8 @@ export default function CityForm({
             value={taxed}
             onChange={(val) => onChange("taxed", val)}
             disabled={checkPrice}
+            option1="DIFERIDO"
+            option2="TRIBUTADO"
           />
         </div>
       )}

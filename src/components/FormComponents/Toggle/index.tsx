@@ -7,6 +7,8 @@ interface YesNoToggleProps {
   containerStyle?: string;
   name?: string;
   disabled?: boolean;
+  option1: string;
+  option2: string;
 }
 
 export default function YesNoToggle({
@@ -14,6 +16,8 @@ export default function YesNoToggle({
   value,
   onChange,
   containerStyle,
+  option1,
+  option2,
   ...props
 }: YesNoToggleProps) {
   return (
@@ -37,7 +41,7 @@ export default function YesNoToggle({
                 ? props.disabled ? "bg-neutral-600 border-neutral-600" : "bg-primary-600 border-primary-600 shadow-md shadow-primary-600/50"
                 : "border-neutral-400 bg-transparent"}`}
           />
-          <span className="text-white text-xl">Diferido</span>
+          <span className="text-white text-xl">{option1}</span>
         </label>
 
         <label className="flex items-center cursor-pointer gap-2">
@@ -54,7 +58,7 @@ export default function YesNoToggle({
                 ? props.disabled ? "bg-neutral-600 border-neutral-600" : "bg-primary-600 border-primary-600 shadow-md shadow-primary-600/50"
                 : "border-neutral-400 bg-transparent"}`}
           />
-          <span className="text-white text-xl">Tributado</span>
+          <span className="text-white text-xl">{option2}</span>
         </label>
       </div>
     </div>
