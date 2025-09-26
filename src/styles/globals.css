@@ -75,6 +75,12 @@
   input[type="number"] {
     -moz-appearance: textfield;
   }
+
+  input[type="month"] {
+  padding: 12px;
+  width: 100%;
+}
+
 }
 
 @layer utilities {

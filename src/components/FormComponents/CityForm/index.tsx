@@ -78,7 +78,7 @@ export default function CityForm({
             type="month"
             value={boardingMonth || ""}
             min={`${new Date().getFullYear()}-01`}
-            max={`${new Date().getFullYear()}-12`}
+            max={`${new Date().getFullYear() + 1}-12`}
             onFocus={(e) => e.target.showPicker && e.target.showPicker()}
             onChange={(e) => onChange("boardingMonth", e.target.value)}
             disabled={checkPrice}
