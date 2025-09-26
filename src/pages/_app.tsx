@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 import { LayoutProvider } from "@/context/Layout";
 import { ModalProvider } from "@/context/Modal";
 import { AuthProvider } from "@/context/Auth";
+import { ClientRegistrationProvider } from "@/context/ClientRegistration";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -62,9 +63,10 @@ export default function App({ Component, pageProps }: AppProps) {
             {["/", "/404"].includes(router.pathname) ? (
               <Component {...pageProps} />
             ) : (
-
               <LayoutProvider>
-                <Component {...pageProps} />
+                <ClientRegistrationProvider>
+                  <Component {...pageProps} />
+                </ClientRegistrationProvider>
               </LayoutProvider>
             )}
             <ToastContainer />

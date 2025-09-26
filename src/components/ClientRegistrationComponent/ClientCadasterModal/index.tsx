@@ -1,21 +1,23 @@
 import ButtonCadaster from "@/components/FormComponents/ButtonCadaster";
 import InputSecondary from "@/components/FormComponents/InputSecondary";
 import BaseModal from "@/components/Lib/BaseModal";
-import { phoneMask } from "@/utils/formatters";
-import { useState } from "react";
-import { FaUserAlt } from "react-icons/fa";
-import { IClientCadaster } from "../type";
-import { PatternFormat } from "react-number-format";
-import { useTripleRequest } from "@/hooks/triple/useTripleRequest";
-import { toast } from "react-toastify";
+import useClientRegistration from "@/context/ClientRegistration";
 import useModal from "@/context/Modal";
+import { useTripleRequest } from "@/hooks/triple/useTripleRequest";
+import { IClientCadaster } from "@/types/User";
+import { phoneMask } from "@/utils/formatters";
+import { useEffect, useState } from "react";
+import { PatternFormat } from "react-number-format";
+import { toast } from "react-toastify";
 
 interface IProps {
-  client?: IClientCadaster
+  client?: IClientCadaster,
+  isEdit?: boolean
 }
 
 export default function ClientCadasterModal(props: IProps) {
   const { setModalContent } = useModal()
+  const { refreshUsers } = useClientRegistration();
   const [form, setForm] = useState<IClientCadaster>({
     name: "",
     whatsapp_number: "",
@@ -25,6 +27,7 @@ export default function ClientCadasterModal(props: IProps) {
 
   const [createUserResult, createUser] = useTripleRequest("POST", {
     onSuccess(_) {
+      refreshUsers();
       toast.success(
         "Usuário criado com sucesso!"
       );
@@ -40,6 +43,35 @@ export default function ClientCadasterModal(props: IProps) {
       toast.error(errorMessage);
     },
   })
+
+  const [updateUserResult, updateUser] = useTripleRequest("PUT", {
+    onSuccess(_) {
+      refreshUsers();
+      toast.success(
+        "Usuário editado com sucesso!"
+      );
+      setForm({
+        name: "",
+        whatsapp_number: "",
+        role: "",
+      })
+      setModalContent(null)
+    },
+    onError(errorMessage) {
+      toast.error(errorMessage);
+    },
+  })
+
+  useEffect(() => {
+    if (props.client) {
+      setForm({
+        name: props.client.name,
+        whatsapp_number: props.client.whatsapp_number,
+        password: props.client.password || "",
+        role: props.client.role,
+      });
+    }
+  }, [props.client]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -58,7 +90,7 @@ export default function ClientCadasterModal(props: IProps) {
             <InputSecondary
               label="Nome"
               name="name"
-              value={props.client?.name ? props.client.name : form.name}
+              value={form.name}
               placeholder="Digite o nome..."
               componentStyle={"w-full"}
               onChange={handleChange}
@@ -69,26 +101,28 @@ export default function ClientCadasterModal(props: IProps) {
               name="whatsapp_number"
               allowEmptyFormatting
               mask="_"
-              value={props.client?.whatsapp_number ? props.client?.whatsapp_number : phoneMask(form.whatsapp_number)}
+              value={phoneMask(form.whatsapp_number)}
               onValueChange={(values) => {
                 setForm({ ...form, whatsapp_number: values.value });
               }}
               customInput={InputSecondary}
               placeholder="+55 (99) 99999-9999"
+              disabled={props.isEdit}
             />
             <InputSecondary
               label="Senha"
               name="password"
-              value={props.client?.password ? props.client?.password : form.password}
+              value={form.password}
               placeholder="*****"
               componentStyle={"w-full"}
               onChange={handleChange}
+              disabled={props.isEdit}
             />
             <div className="flex flex-col">
               <p className="font-medium text-white">Roles</p>
               <select
                 name="role"
-                value={props.client?.role ? props.client?.role : form.role}
+                value={form.role}
                 onChange={handleChange}
                 className="w-full px-3 border-[1px] border-neutral-700 rounded-lg h-11 overflow-hidden focus-within:border-primary-900 flex items-center bg-transparent text-white"
               >
@@ -100,18 +134,28 @@ export default function ClientCadasterModal(props: IProps) {
 
             <div className="w-full mt-3">
               <ButtonCadaster
-                title="Cadastrar Usuário"
+                title={props.isEdit ? "Salvar Alterações" : "Cadastrar Cliente"}
                 containerStyle={"w-full"}
                 onClick={() => {
-                  createUser({
-                    url: `/users`,
-                    body: {
-                      name: form.name,
-                      whatsapp_number: form.whatsapp_number,
-                      password: form.password,
-                      role: form.role
-                    }
-                  })
+                  if (props.isEdit) {
+                    updateUser({
+                      url: `/users/${props.client?.whatsapp_number}`,
+                      body: {
+                        name: form.name,
+                        role: form.role
+                      }
+                    })
+                  } else {
+                    createUser({
+                      url: `/users`,
+                      body: {
+                        name: form.name,
+                        whatsapp_number: form.whatsapp_number,
+                        password: form.password,
+                        role: form.role
+                      }
+                    })
+                  }
                 }}
               />
             </div>
