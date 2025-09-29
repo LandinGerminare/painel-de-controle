@@ -150,7 +150,7 @@ export default function ClientCadasterModal(props: IProps) {
                       url: `/users`,
                       body: {
                         name: form.name,
-                        whatsapp_number: form.whatsapp_number,
+                        whatsapp_number: `55${form.whatsapp_number}`,
                         password: form.password,
                         role: form.role
                       }

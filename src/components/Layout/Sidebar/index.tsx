@@ -14,8 +14,7 @@ interface SideBarProps {
 
 export default function SideBar(props: SideBarProps) {
   const router = useRouter()
-
-  const { clearCredentials } = useAuth();
+  const { clearCredentials, isAdmin } = useAuth();
   const { collapsed, setCollapsed } = useLayout()
 
   return (
@@ -36,6 +35,10 @@ export default function SideBar(props: SideBarProps) {
         </div>
         {menuOptions.map((e) => {
           const Icon = e.icon;
+          if (e.route === "/client-registration" && !isAdmin()) {
+            return null;
+          }
+
           return (
             <SideBarItem
               key={e.name}

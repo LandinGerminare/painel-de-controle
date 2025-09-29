@@ -7,6 +7,8 @@ interface AuthContextI {
   getAccessToken: () => string | null;
   setCredentials: (credentials: AuthModel) => void;
   clearCredentials: () => void;
+  isAdmin: () => boolean;
+  getUserRoles: () => string;
 }
 
 const AuthContext = createContext<AuthContextI>({} as AuthContextI);
@@ -20,17 +22,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("access_token");
     const storedUsername = localStorage.getItem("username");
+    const storedRoles = window.localStorage.getItem("role");
 
     setAuthModel({
       access_token: storedAccessToken ?? "",
       type: "",
       username: storedUsername ?? "",
+      role: storedRoles ? JSON.parse(storedRoles) : [],
     });
   }, []);
 
   function setCredentials(credencials: AuthModel): void {
     localStorage.setItem("access_token", credencials.access_token);
     localStorage.setItem("username", credencials.username);
+    localStorage.setItem("role", credencials.role);
     setAuthModel(credencials);
   }
 
@@ -66,12 +71,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     });
   }
 
+
+  function getUserRoles(): string {
+    if (authModel?.role) {
+      return authModel.role;
+    }
+
+    return "";
+  }
+
+  function isAdmin(): boolean {
+    return getUserRoles().includes("ADMIN");
+  }
+
   return (
     <AuthContext.Provider
       value={{
         getAccessToken,
         setCredentials,
         clearCredentials,
+        isAdmin,
+        getUserRoles,
       }}
     >
       {children}
