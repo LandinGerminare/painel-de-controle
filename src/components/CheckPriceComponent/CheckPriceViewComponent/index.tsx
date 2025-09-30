@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import ModalSendWhatsapp from "../ModalSendWhatsapp";
 import { FaWhatsapp } from "react-icons/fa";
 import Loading from "@/lib/Loading";
+import InputPrimary from "@/components/FormComponents/InputPrimary";
 
 export default function CheckPriceViewComponent() {
   const [loading, setLoading] = useState(false);
@@ -16,24 +17,28 @@ export default function CheckPriceViewComponent() {
   const [sendPdf, setSendPdf] = useState()
   const [isHovered, setIsHovered] = useState(false);
   const { setModalContent } = useModal();
+  const [searchData, setSearchData] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await priceApi.get("/v1/prices/all-today-prices");
+        const response = await priceApi.get(`/v1/prices/all-today-prices/`, {
+          params: { date: searchData || "" },
+        });
 
         setCities(response.data);
       } catch (error: any) {
         toast.error("Erro ao carregar preços.");
         console.error(error);
+        setCities([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [searchData]);
 
   const handlePdf = async () => {
     try {
@@ -97,7 +102,14 @@ export default function CheckPriceViewComponent() {
   return (
     <div className="w-full">
       <div className="gap-4 flex flex-col w-full">
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-6">
+          <InputPrimary
+            label="Data dos Preços"
+            type="date"
+            onClick={(e) => e.currentTarget.showPicker?.()}
+            value={searchData}
+            onChange={(e) => setSearchData(e.target.value)}
+          />
           <div className="flex flex-col gap-4">
             {cities.length > 0 ? (
               cities.map((city, index) => {
