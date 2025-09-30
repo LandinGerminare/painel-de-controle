@@ -22,13 +22,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("access_token");
     const storedUsername = localStorage.getItem("username");
-    const storedRoles = window.localStorage.getItem("role");
+    const storedRoles = localStorage.getItem("role");
 
     setAuthModel({
       access_token: storedAccessToken ?? "",
       type: "",
       username: storedUsername ?? "",
-      role: storedRoles ? JSON.parse(storedRoles) : [],
+      role: storedRoles ?? "",
     });
   }, []);
 
