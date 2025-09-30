@@ -12,12 +12,13 @@ import Loading from "@/lib/Loading";
 import InputPrimary from "@/components/FormComponents/InputPrimary";
 
 export default function CheckPriceViewComponent() {
+  const today = new Date().toISOString().split("T")[0];
   const [loading, setLoading] = useState(false);
   const [cities, setCities] = useState<PriceCity[]>([]);
   const [sendPdf, setSendPdf] = useState()
   const [isHovered, setIsHovered] = useState(false);
   const { setModalContent } = useModal();
-  const [searchData, setSearchData] = useState("");
+  const [searchData, setSearchData] = useState(today);
 
   useEffect(() => {
     const fetchData = async () => {
