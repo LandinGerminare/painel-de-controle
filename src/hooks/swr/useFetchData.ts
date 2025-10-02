@@ -21,11 +21,7 @@ export default function useFetchData<T>(url: string | null) {
   };
 
   const mutateData = async () => {
-    if (url?.includes("purchase-book") && !url.includes("frame-month")) {
-      await mutate(url, undefined, { revalidate: true });
-    } else {
-      await mutate(url);
-    }
+    await mutate(url);
   };
 
   return {

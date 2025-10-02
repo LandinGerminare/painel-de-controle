@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem("access_token", credencials.access_token);
     localStorage.setItem("username", credencials.username);
     localStorage.setItem("role", credencials.role);
+
     setAuthModel(credencials);
   }
 
