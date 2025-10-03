@@ -93,6 +93,10 @@
   filter: invert(1);
   cursor: pointer;
 }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
 
   .scrollbar::-webkit-scrollbar-track {
     border-radius: 100vh;
