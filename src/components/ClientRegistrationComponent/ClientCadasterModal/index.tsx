@@ -102,7 +102,7 @@ export default function ClientCadasterModal(props: IProps) {
         }
       };
 
-      const response = await fetch(`http://54.86.36.100/api/rest/ByVkIbyu/save-new-user`, {
+      const response = await fetch(`https://germinaredata.com/api/rest/ByVkIbyu/save-new-user`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImFwcDoxOCJ9.srE23jzRBrFB2pkxsXish60xQ8B6ydSBzIMhBpuefbI`,
@@ -213,6 +213,7 @@ export default function ClientCadasterModal(props: IProps) {
                       body: {
                         name: form.name,
                         whatsapp_number: `55${form.whatsapp_number}`,
+                        status: `CONECTADO_AO_WHATSAPP_BASIC`,
                         password: form.password,
                         role: form.role
                       }

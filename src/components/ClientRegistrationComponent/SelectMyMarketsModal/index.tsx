@@ -22,7 +22,7 @@ export default function SelectMyMarketsModal({ setOpenedMarketModal, whatsapp_nu
       try {
         setLoading(true);
         const response = await fetch(
-          `http://54.86.36.100/api/rest/lmDtnueA/user-symbols-activate?user_number=${whatsapp_number}`,
+          `https://germinaredata.com/api/rest/lmDtnueA/user-symbols-activate?user_number=${whatsapp_number}`,
           {
             method: "GET",
             headers: {
