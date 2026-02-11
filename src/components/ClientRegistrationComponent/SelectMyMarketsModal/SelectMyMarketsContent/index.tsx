@@ -10,6 +10,7 @@ interface SelectMyMarketsContentProps {
   setInactiveMarkets: (markets: AvailableMarket[]) => void;
   setOpenedMarketModal: (open: boolean) => void;
   onClose: (activeMarkets: AvailableMarket[]) => void;
+  whatsapp_number: string;
 }
 
 export default function SelectMyMarketsContent(
@@ -22,9 +23,46 @@ export default function SelectMyMarketsContent(
     props.setInactiveMarkets(props.inactiveMarkets.filter(m => m.cd_ativo !== market.cd_ativo));
   };
 
-  const handleDeactivate = (market: AvailableMarket) => {
+  const handleDeactivate = async (market: AvailableMarket) => {
+    if (!props.whatsapp_number) return;
+
+    // 🔹 Backup para possível rollback
+    const previousActive = props.activeMarkets;
+    const previousInactive = props.inactiveMarkets;
+
+    // 🔹 1. Atualiza UI imediatamente
     props.setInactiveMarkets([...props.inactiveMarkets, market]);
-    props.setActiveMarkets(props.activeMarkets.filter(m => m.cd_ativo !== market.cd_ativo));
+    props.setActiveMarkets(
+      props.activeMarkets.filter(m => m.cd_ativo !== market.cd_ativo)
+    );
+
+    try {
+      const params = new URLSearchParams({
+        user_number: String(props.whatsapp_number),
+        delete_symbol: market.cd_ativo
+      });
+
+      const response = await fetch(
+        `http://54.86.36.100/api/rest/FssDavee/delete-user-symbols?${params.toString()}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImFwcDoxOCJ9.srE23jzRBrFB2pkxsXish60xQ8B6ydSBzIMhBpuefbI`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erro ao deletar praça");
+      }
+
+    } catch (error) {
+      console.error("Erro ao desativar praça:", error);
+
+      // 🔴 Rollback se falhar
+      props.setActiveMarkets(previousActive);
+      props.setInactiveMarkets(previousInactive);
+    }
   };
 
   const filteredInactive = props.inactiveMarkets.filter(

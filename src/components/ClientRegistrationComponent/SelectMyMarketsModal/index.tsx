@@ -89,6 +89,7 @@ export default function SelectMyMarketsModal({ setOpenedMarketModal, whatsapp_nu
               setInactiveMarkets={setInactiveMarkets}
               setOpenedMarketModal={setOpenedMarketModal}
               onClose={handleClose}
+              whatsapp_number={whatsapp_number}
             />
           )}
         </div>
