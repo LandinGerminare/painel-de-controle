@@ -1,16 +1,11 @@
-import GerminareImage from '@/../public/images/germinare_logo.png';
-import ButtonCadaster from '@/components/FormComponents/ButtonCadaster';
 import ButtonLogin from '@/components/FormComponents/ButtonLogin';
 import Input from '@/components/FormComponents/Input';
-import InputPrimary from '@/components/FormComponents/InputPrimary';
 import useAuth from '@/context/Auth';
 import { AuthModel } from '@/context/Auth/types';
 import { useTripleRequest } from '@/hooks/triple/useTripleRequest';
-import { Roboto } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Eye, EyeSlash } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { FaPhone } from 'react-icons/fa';
 import { PatternFormat } from "react-number-format";
@@ -20,7 +15,6 @@ export default function Home() {
   const router = useRouter();
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [viewPassword, setViewPassword] = useState(false)
   const { setCredentials, getAccessToken } = useAuth();
 
   const [result, doLogin] = useTripleRequest<AuthModel>("POST", {
