@@ -1,21 +1,20 @@
 import GerminareImage from '@/../public/images/germinare_logo.png';
 import ButtonCadaster from '@/components/FormComponents/ButtonCadaster';
+import ButtonLogin from '@/components/FormComponents/ButtonLogin';
+import Input from '@/components/FormComponents/Input';
 import InputPrimary from '@/components/FormComponents/InputPrimary';
 import useAuth from '@/context/Auth';
 import { AuthModel } from '@/context/Auth/types';
 import { useTripleRequest } from '@/hooks/triple/useTripleRequest';
 import { Roboto } from 'next/font/google';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Eye, EyeSlash } from 'phosphor-react';
 import { useEffect, useState } from 'react';
+import { FaPhone } from 'react-icons/fa';
 import { PatternFormat } from "react-number-format";
 import { toast } from 'react-toastify';
-
-const roboto = Roboto({
-  subsets: ['latin'],
-  weight: ['100', '300', '400', '700'],
-})
 
 export default function Home() {
   const router = useRouter();
@@ -53,7 +52,7 @@ export default function Home() {
   const handleLogin = () => {
     if (phone && password) {
       const formData = new FormData();
-      formData.append("username", `55${phone}`);
+      formData.append("username", `${phone}`);
       formData.append("password", password);
       doLogin({
         url: "/login",
@@ -70,64 +69,80 @@ export default function Home() {
   };
 
   return (
-    <main className="h-screen w-screen bg-primary-700 flex items-center justify-center">
-      <div className="flex flex-row bg-neutral-900 h-[82%] w-[70%] rounded-xl shadow-[30px_50px_8px_rgba(0,0,0,0.25)]">
-        <div
-          className="hidden tablet:flex w-[60%] h-full bg-primary-400 rounded-l-xl bg-[url('/images/image_dados.png')] bg-cover bg-center"
+    <main className="flex h-screen flex-col md:flex-row items-center md:items-start">
+      <div className="flex flex-col xl:w-1/3 md:w-3/6 sm:w-3/4 w-full h-full md:justify-center items-center md:items-start gap-6 xl:px-20 px-8 order-2 md:order-1 mt-12 md:mt-0">
+        <Image
+          src="/images/logo_germinare.png"
+          alt="Logo Germinare"
+          width={200}
+          height={60}
+          priority
+          className="hidden md:block "
+        />
+        <h2 className="font-extrabold xl:text-4xl lg:text-3xl md:text-2xl text-3xl text-center md:text-start text-[#181411]">Painel de Controle</h2>
+        <PatternFormat
+          format="+55 (##) #####-####"
+          allowEmptyFormatting
+          mask="_"
+          value={phone.replace(/^55/, "")}
+          onValueChange={(values) => {
+            const raw = values.value;
+            setPhone(raw ? `55${raw}` : "");
+          }}
+          customInput={Input}
+          placeholder="+55 (99) 99999-9999"
+          componentstyle="w-full"
+          icon={<FaPhone size={18} />}
+          variant="white"
+        />
+
+        <Input
+          label="Senha"
+          type="password"
+          placeholder="Digite sua senha"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          componentstyle={"w-full"}
+          variant="white"
+        />
+
+        <ButtonLogin title="Entrar" onClick={handleLogin} loading={result.state === "Loading"} />
+
+        <Link
+          href="/forgot-password"
+          className="font-semibold text-primary-500 w-full text-end cursor-pointer"
         >
-          <div className='flex justify-center w-full pt-56'>
-            <div className="relative w-[60%] h-[100px]">
-              <Image
-                src={GerminareImage}
-                alt="Logo Germinare"
-                fill
-                className="object-contain"
-              />
-            </div>
-          </div>
+          Esqueci a Senha
+        </Link>
+      </div>
+      <div className="relative w-full h-[40vh] md:h-full overflow-hidden order-1 md:order-2">
+        <video
+          src="/images/bg-login.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="relative z-10 flex items-center justify-center md:h-3/6 h-full">
+          <Image
+            src="/images/germinare_logo.png"
+            alt="Logo Germinare"
+            width={500}
+            height={90}
+            priority
+            className="w-80 md:w-125 h-auto"
+          />
         </div>
 
-        <div className='flex flex-col tablet:w-[40%] w-full'>
-          <div className='flex flex-col pt-14 pl-8'>
-            <span className={`${roboto.className} text-5xl text-primary-500 font-extralight`}>Painel</span>
-            <span className='text-5xl text-primary-500 font-bold'>De Controle</span>
-          </div>
+        <div className="relative z-10 hidden md:flex items-center justify-start w-full h-4/6 pl-12">
+          <div className="flex gap-6 items-center">
+            <span className="w-px h-40 bg-linear-to-b via-[#FEF3C7] shadow-[0_0_15px_rgba(254,243,199,0.5)] opacity-80"></span>
 
-          <div className='flex flex-col w-full h-full items-center'>
-            <div className='flex flex-col gap-8 tablet:w-[68%] w-[90%] h-[75%] items-center justify-center'>
-              <h1 className='text-3xl font-bold text-white'><span className='text-primary-500'>Entre</span> com sua conta</h1>
-              <div className='w-full flex flex-col gap-4'>
-                <PatternFormat
-                  format="+55 (##) #####-####"
-                  allowEmptyFormatting
-                  mask="_"
-                  value={phone}
-                  onValueChange={(values) => setPhone(values.value)}
-                  customInput={InputPrimary}
-                  placeholder="+55 (99) 99999-9999"
-                />
-                <div className="relative w-full">
-                  <InputPrimary
-                    placeholder='Digite sua senha...'
-                    type={viewPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                  />
-                  <button
-                    onClick={() => setViewPassword(viewPassword ? false : true)}
-                    className="absolute top-2/4 -translate-y-1/2 right-0 p-3 text-gray-500 hover:text-gray-700"
-                    title={viewPassword ? "Ocultar" : "Mostrar"}
-                  >
-                    {viewPassword ? <EyeSlash size={32} /> : <Eye size={32} />}
-                  </button>
-                </div>
-                <ButtonCadaster
-                  title='Entrar'
-                  loading={result.state === "Loading"}
-                  onClick={handleLogin}
-                />
-              </div>
-            </div>
+            <span className="text-white max-w-96 font-bold text-lg shadow-xl">
+              Germano IA gives admins full control over clients, subscriptions, and financial performance through intelligent automation.
+            </span>
           </div>
         </div>
       </div>

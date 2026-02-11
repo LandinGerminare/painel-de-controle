@@ -11,6 +11,7 @@ interface RequestParams {
   config?: AxiosRequestConfig;
   defaultError?: string;
   headers?: any;
+  detail?: string;
 }
 
 export interface RequestCallbacks<T> {
@@ -48,10 +49,10 @@ export const useTripleRequest = <T>(
       onResult?.onSuccess && onResult?.onSuccess(response.data);
     } catch (e) {
       let errorMessage =
-        args.defaultError ||
+        args.detail ||
         "Ocorreu um erro desconhecido. Tente novamente mais tarde.";
-      if (e instanceof AxiosError && e.response?.headers.customErrorMessage) {
-        errorMessage = e.response?.headers.customErrorMessage;
+      if (e instanceof AxiosError && e.response?.data.detail) {
+        errorMessage = e.response.data.detail;
       }
       setFailed(errorMessage);
       onResult?.onError && onResult?.onError(errorMessage);

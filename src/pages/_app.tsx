@@ -1,3 +1,7 @@
+import { AuthProvider } from "@/context/Auth";
+import { LayoutProvider } from "@/context/Layout";
+import { ModalProvider } from "@/context/Modal";
+import { msalConfig } from "@/entraid/authConfig";
 import "@/styles/globals.css";
 import { BoundaryError } from "@/types/ApplicationError";
 import { reportApplicationError } from "@/utils/ReportApplicationError";
@@ -6,15 +10,10 @@ import { MsalProvider } from "@azure/msal-react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ErrorBoundary } from "react-error-boundary";
-import { useWindowSize } from "usehooks-ts";
-import { msalConfig } from "@/entraid/authConfig";
 import NextNProgress from "nextjs-progressbar";
+import { ErrorBoundary } from "react-error-boundary";
 import { ToastContainer } from "react-toastify";
-import { LayoutProvider } from "@/context/Layout";
-import { ModalProvider } from "@/context/Modal";
-import { AuthProvider } from "@/context/Auth";
-import { ClientRegistrationProvider } from "@/context/ClientRegistration";
+import { useWindowSize } from "usehooks-ts";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -64,9 +63,7 @@ export default function App({ Component, pageProps }: AppProps) {
               <Component {...pageProps} />
             ) : (
               <LayoutProvider>
-                <ClientRegistrationProvider>
-                  <Component {...pageProps} />
-                </ClientRegistrationProvider>
+                <Component {...pageProps} />
               </LayoutProvider>
             )}
             <ToastContainer />
