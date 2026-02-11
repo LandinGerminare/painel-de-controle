@@ -43,7 +43,7 @@ export default function SelectMyMarketsContent(
       });
 
       const response = await fetch(
-        `http://54.86.36.100/api/rest/FssDavee/delete-user-symbols?${params.toString()}`,
+        `https://germinaredata.com/api/rest/FssDavee/delete-user-symbols?${params.toString()}`,
         {
           method: "GET",
           headers: {
