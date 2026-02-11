@@ -1,7 +1,11 @@
 import axios from "axios";
 
-const META_URL = "https://graph.facebook.com/v22.0/774723089049048/messages";
+const META_URL = process.env.NEXT_PUBLIC_META_URL;
 const TOKEN = process.env.NEXT_PUBLIC_WHATSAPP_TOKEN;
+
+if (!META_URL) {
+  throw new Error("NEXT_PUBLIC_META_URL não está definida");
+}
 
 interface SendWhatsappProps {
   to: string;

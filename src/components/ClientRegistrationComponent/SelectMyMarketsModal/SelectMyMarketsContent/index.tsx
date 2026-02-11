@@ -1,7 +1,8 @@
+import { gaioApi } from "@/api/gaioApi";
+import Button from "@/components/FormComponents/Button";
 import InputPrimary from "@/components/FormComponents/InputPrimary";
 import { useState } from "react";
 import MarketItem from "./MarketItem";
-import Button from "@/components/FormComponents/Button";
 
 interface SelectMyMarketsContentProps {
   inactiveMarkets: AvailableMarket[];
@@ -26,35 +27,25 @@ export default function SelectMyMarketsContent(
   const handleDeactivate = async (market: AvailableMarket) => {
     if (!props.whatsapp_number) return;
 
-    // 🔹 Backup para possível rollback
     const previousActive = props.activeMarkets;
     const previousInactive = props.inactiveMarkets;
 
-    // 🔹 1. Atualiza UI imediatamente
     props.setInactiveMarkets([...props.inactiveMarkets, market]);
     props.setActiveMarkets(
       props.activeMarkets.filter(m => m.cd_ativo !== market.cd_ativo)
     );
 
     try {
-      const params = new URLSearchParams({
-        user_number: String(props.whatsapp_number),
-        delete_symbol: market.cd_ativo
-      });
 
-      const response = await fetch(
-        `https://germinaredata.com/api/rest/FssDavee/delete-user-symbols?${params.toString()}`,
+      const { data } = await gaioApi.get(
+        "/FssDavee/delete-user-symbols",
         {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImFwcDoxOCJ9.srE23jzRBrFB2pkxsXish60xQ8B6ydSBzIMhBpuefbI`,
+          params: {
+            user_number: String(props.whatsapp_number),
+            delete_symbol: market.cd_ativo,
           },
         }
       );
-
-      if (!response.ok) {
-        throw new Error("Erro ao deletar praça");
-      }
 
     } catch (error) {
       console.error("Erro ao desativar praça:", error);

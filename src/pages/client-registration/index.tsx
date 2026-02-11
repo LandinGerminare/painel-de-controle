@@ -20,9 +20,7 @@ export default function ClientRegistration() {
           />}
         />
         }>
-        <ClientRegistrationProvider>
-          <ClientRegistrationViewComponent />
-        </ClientRegistrationProvider>
+        <ClientRegistrationViewComponent />
       </BasePage>
     </Layout>
   )

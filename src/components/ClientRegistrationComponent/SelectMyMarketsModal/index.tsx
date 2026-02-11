@@ -1,8 +1,9 @@
+import { gaioApi } from "@/api/gaioApi";
+import Loading from "@/lib/Loading";
 import { motion } from "framer-motion";
 import { X } from "phosphor-react";
 import { useEffect, useState } from "react";
 import SelectMyMarketsContent from "./SelectMyMarketsContent";
-import Loading from "@/lib/Loading";
 
 interface SelectMyMarketsModalProps {
   setOpenedMarketModal: (open: boolean) => void;
@@ -21,27 +22,19 @@ export default function SelectMyMarketsModal({ setOpenedMarketModal, whatsapp_nu
     const fetchMarkets = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          `https://germinaredata.com/api/rest/lmDtnueA/user-symbols-activate?user_number=${whatsapp_number}`,
-          {
-            method: "GET",
-            headers: {
-              "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImFwcDoxOCJ9.srE23jzRBrFB2pkxsXish60xQ8B6ydSBzIMhBpuefbI`,
-              "Content-Type": "application/json"
-            },
-          }
-        );
 
-        if (!response.ok) {
-          throw new Error("Erro ao buscar mercados");
-        }
+        const { data } = await gaioApi.get("/lmDtnueA/user-symbols-activate", {
+          params: {
+            user_number: whatsapp_number,
+          },
+        });
 
-        const result = await response.json();
-        const inativos = (result.data ?? []).filter((item: any) => !item.active);
-        const ativos = (result.data ?? []).filter((item: any) => item.active);
+        const inativos = (data?.data ?? []).filter((item: any) => !item.active);
+        const ativos = (data?.data ?? []).filter((item: any) => item.active);
 
         setInactiveMarkets(inativos);
         setActiveMarkets(ativos);
+
       } catch (err: any) {
         setError(err.message || "Erro inesperado");
       } finally {

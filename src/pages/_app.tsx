@@ -14,6 +14,8 @@ import NextNProgress from "nextjs-progressbar";
 import { ErrorBoundary } from "react-error-boundary";
 import { ToastContainer } from "react-toastify";
 import { useWindowSize } from "usehooks-ts";
+import ClientRegistration from "./client-registration";
+import { ClientRegistrationProvider } from "@/context/ClientRegistration";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -59,11 +61,13 @@ export default function App({ Component, pageProps }: AppProps) {
               color="var(--primary-500)"
               options={{ showSpinner: false }}
             />
-            {["/", "/404"].includes(router.pathname) ? (
+            {["/", "/404", "/forgot-password"].includes(router.pathname) ? (
               <Component {...pageProps} />
             ) : (
               <LayoutProvider>
-                <Component {...pageProps} />
+                <ClientRegistrationProvider>
+                  <Component {...pageProps} />
+                </ClientRegistrationProvider>
               </LayoutProvider>
             )}
             <ToastContainer />

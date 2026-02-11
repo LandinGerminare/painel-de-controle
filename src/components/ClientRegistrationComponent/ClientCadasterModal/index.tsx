@@ -1,3 +1,4 @@
+import { gaioApi } from "@/api/gaioApi";
 import Button from "@/components/FormComponents/Button";
 import ButtonCadaster from "@/components/FormComponents/ButtonCadaster";
 import InputSecondary from "@/components/FormComponents/InputSecondary";
@@ -62,6 +63,7 @@ export default function ClientCadasterModal(props: IProps) {
       setModalContent(null)
     },
     onError(errorMessage) {
+      console.log(errorMessage)
       toast.error(errorMessage);
     },
   })
@@ -102,18 +104,16 @@ export default function ClientCadasterModal(props: IProps) {
         }
       };
 
-      const response = await fetch(`https://germinaredata.com/api/rest/ByVkIbyu/save-new-user`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImFwcDoxOCJ9.srE23jzRBrFB2pkxsXish60xQ8B6ydSBzIMhBpuefbI`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(body),
-      });
+      console.log(body)
+      const { data } = await gaioApi.post(
+        "/ByVkIbyu/save-new-user",
+        body
+      );
 
-      if (!response.ok) {
+      if (!data) {
+        console.log("Teste")
         // Se o status não for 200~299, lança erro
-        throw new Error(`Erro ao salvar mercados: ${response.status}`);
+        throw new Error(`Erro ao salvar mercados: ${data.status}`);
       }
 
       updateUser({

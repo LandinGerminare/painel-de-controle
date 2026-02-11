@@ -1,10 +1,9 @@
-import Button from "@/components/FormComponents/Button";
 import ButtonLogin from "@/components/FormComponents/ButtonLogin";
 import Input from "@/components/FormComponents/Input";
 import { useTripleRequest } from "@/hooks/triple/useTripleRequest";
 import { validatePassword } from "@/utils/ValidatePassword";
 import Link from "next/link";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useState } from "react";
 import { FaArrowLeft, FaCheckCircle } from "react-icons/fa";
 import { toast } from "react-toastify";

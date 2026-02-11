@@ -4,7 +4,7 @@ import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
 export const api = axios.create({
-  baseURL: "https://germinare-whatsapp-dev-3557ea82e61c.herokuapp.com/",
+  baseURL: `${process.env.NEXT_PUBLIC_BASE_URL}`,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",

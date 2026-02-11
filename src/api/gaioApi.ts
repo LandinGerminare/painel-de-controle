@@ -3,21 +3,23 @@ import { reportApplicationError } from "@/utils/ReportApplicationError";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
-export const priceApi = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_PRICES_API}`,
+export const gaioApi = axios.create({
+  baseURL: `${process.env.NEXT_PUBLIC_BASE_URL_GAIO}`,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
   },
 });
 
-priceApi.interceptors.request.use(
+gaioApi.interceptors.request.use(
   (config) => {
-    const token =
-      "7b7bb51876405bf634a09b7b8d14b0ed768df56a5a827cf26b4bb93b0f79a07e22";
-
+    const token = process.env.NEXT_PUBLIC_TOKEN_GAIO
     if (token) {
-      config.headers!["X-API-Key"] = token;
+      config.headers!["Authorization"] = `Bearer ${token}`;
+    }
+    if (config.data instanceof FormData) {
+      delete config.headers!["Content-Type"];
+      delete config.headers!["Accept"];
     }
 
     return config;
@@ -25,7 +27,8 @@ priceApi.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-priceApi.interceptors.response.use(
+
+gaioApi.interceptors.response.use(
   (res) => {
     return res;
   },
