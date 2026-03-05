@@ -19,6 +19,7 @@ export default function SendIaViewComponent() {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [typeSend, setTypeSend] = useState(false)
+  const [typeText, setTextSend] = useState(false)
   const [file, setFile] = useState<File | null>(null);
 
   const [sendIa, setSendIa] = useTripleRequest<SendIaProps>("POST", {
@@ -53,13 +54,22 @@ export default function SendIaViewComponent() {
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Digite o Titulo da Mensagem"
           />
-          <Toggle
-            label="Tipo de Envio"
-            option1="Texto"
-            option2="PDF"
-            value={typeSend}
-            onChange={(val) => setTypeSend(val)}
-          />
+          <div className="w-full flex gap-8">
+            <Toggle
+              label="Esse texto é Persistente?"
+              option1="Não"
+              option2="Sim"
+              value={typeText}
+              onChange={(val) => setTextSend(val)}
+            />
+            <Toggle
+              label="Tipo de Envio"
+              option1="Texto"
+              option2="PDF"
+              value={typeSend}
+              onChange={(val) => setTypeSend(val)}
+            />
+          </div>
           {typeSend ? (
             <div className="w-full h-full flex flex-col gap-4">
               <button className={`relative w-full rounded-xl border border-neutral-700 flex justify-center items-center cursor-pointer overflow-hidden ${file ? "h-[90%]" : "h-full"}`}>
@@ -113,9 +123,10 @@ export default function SendIaViewComponent() {
                 toast.error("Por favor, preencha todos os campos.");
                 return;
               }
+              let is_persistent = typeText
               setSendIa({
                 url: "/knowledge-base",
-                body: { title, text },
+                body: { title, text, is_persistent },
               });
             } else {
               if (!title || !file) {
